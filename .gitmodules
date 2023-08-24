@@ -1,0 +1,9 @@
+[submodule "modules/expK8"]
+	path = modules/expK8
+	url = https://github.com/pbhandar2/expK8
+[submodule "modules/CacheLib"]
+	path = modules/CacheLib
+	url = https://github.com/pbhandar2/CacheLib
+[submodule "modules/Cydonia"]
+	path = modules/Cydonia
+	url = https://github.com/pbhandar2/phdthesis
