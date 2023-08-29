@@ -59,6 +59,8 @@ class CreateCacheTrace:
                 continue 
 
             block_trace_path = self._sample_config.get_sample_trace_path(sample_type, workload_type, workload_name, rate, bits, seed)
+            if not block_trace_path.exists():
+                continue 
             create_arr.append({
                 "block": block_trace_path,
                 "cache": cache_trace_path
@@ -67,6 +69,8 @@ class CreateCacheTrace:
             cache_trace_path = self._global_config.get_block_cache_trace_path(workload_type, workload_name)
             if not cache_trace_path.exists():
                 block_trace_path = self._global_config.get_block_trace_path(workload_type, workload_name)
+                if not block_trace_path.exists():
+                    continue 
                 create_arr.append({
                     "block": block_trace_path,
                     "cache": cache_trace_path
