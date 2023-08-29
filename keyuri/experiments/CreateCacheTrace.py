@@ -7,7 +7,7 @@ from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
 class CreateCacheTrace:
-    def __init__(self) -> None:
+    def __init__(self, stack_binary_path) -> None:
         """This class generates cache traces from block storage traces. 
         
         Attributes:
@@ -16,12 +16,12 @@ class CreateCacheTrace:
         """
         self._global_config = GlobalConfig()
         self._sample_config = SampleExperimentConfig()
+        self._stack_binary_path = stack_binary_path
 
     
     def create_process(
             self,
-            create_param_arr: list,
-            stack_compute_binary_path: str 
+            create_param_arr: list
     ) -> None:
         """Function called by a process that is creating cache traces. 
 
@@ -30,7 +30,7 @@ class CreateCacheTrace:
         """
         for create_params in create_param_arr:
             block_trace_path, cache_trace_path = create_params["block"], create_params["cache"]
-            cache_trace = CacheTrace(stack_compute_binary_path)
+            cache_trace = CacheTrace(self._stack_binary_path)
             cache_trace_path.parent.mkdir(exist_ok=True, parents=True)
             cache_trace.generate_cache_trace(block_trace_path, cache_trace_path)
             print("Generated cache trace {} for block trace {}".format(cache_trace_path, block_trace_path))
