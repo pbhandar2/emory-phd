@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from keyuri.experiments.CreateSamples import CreateCacheTrace
+from keyuri.experiments.CreateCacheTrace import CreateCacheTrace
 
 
 if __name__ == "__main__":
