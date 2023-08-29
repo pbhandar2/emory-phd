@@ -69,12 +69,11 @@ class CreateCacheTrace:
             cache_trace_path = self._global_config.get_block_cache_trace_path(workload_type, workload_name)
             if not cache_trace_path.exists():
                 block_trace_path = self._global_config.get_block_trace_path(workload_type, workload_name)
-                if not block_trace_path.exists():
-                    continue 
-                create_arr.append({
-                    "block": block_trace_path,
-                    "cache": cache_trace_path
-                })
+                if block_trace_path.exists():
+                    create_arr.append({
+                        "block": block_trace_path,
+                        "cache": cache_trace_path
+                    })
 
         if batch_size < 1:
             batch_size = cpu_count()
