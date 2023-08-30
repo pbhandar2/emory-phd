@@ -62,8 +62,7 @@ class GlobalConfig:
             workload_type: str,
             workload_name: str
     ) -> Path:
-        global_config = GlobalConfig()
-        feature_dir = global_config.block_feature_dir_path
+        feature_dir = self.block_feature_dir_path
         return feature_dir.joinpath(
                 workload_type,
                 "{}.json".format(workload_name)
@@ -73,10 +72,9 @@ class GlobalConfig:
     def get_cache_feature_file_path(
             self,
             workload_type: str,
-            workload_name: str
+            workload_name: str,
     ) -> Path:
-        global_config = GlobalConfig()
-        feature_dir = global_config.cache_feature_dir_path
+        feature_dir = self.cache_feature_dir_path
         return feature_dir.joinpath(
                 workload_type,
                 "{}.json".format(workload_name)
