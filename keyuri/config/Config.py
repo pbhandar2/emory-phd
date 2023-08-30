@@ -100,6 +100,7 @@ class SampleExperimentConfig:
             global_config = GlobalConfig()
     ) -> Path:
         trace_dir = global_config.sample_block_trace_dir_path
+        print("sample trace dir is {}, workload name: {}".format(trace_dir, workload_name))
         return trace_dir.joinpath(
                 sample_type,
                 workload_type,
