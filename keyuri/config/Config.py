@@ -86,7 +86,7 @@ class GlobalConfig:
 
 class SampleExperimentConfig:
     rate_arr = [1, 5, 10, 20, 40, 80]
-    seed_arr = [42]
+    seed_arr = [42, 43, 44]
     bits_arr = [0, 2, 4, 6, 8, 10, 12]  
     sample_type = "iat"
 
