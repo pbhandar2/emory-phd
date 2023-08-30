@@ -54,7 +54,7 @@ class CreateSamples:
             sample_stat_path.parent.mkdir(exist_ok=True, parents=True)
 
             print("Generating samples {}".format(sample_trace_path))
-            sample_stats = sample(str(block_trace_path.absolute()), rate/100, seed, bits, sample_trace_path)
+            sample_stats = sample(block_trace_path, rate/100, seed, bits, sample_trace_path)
             with sample_stat_path.open("w+") as stat_file_handle:
                 dump(sample_stats, stat_file_handle, indent=2)
             print("Generating sample {} and stat file {} completed!".format(sample_trace_path, sample_stat_path))
