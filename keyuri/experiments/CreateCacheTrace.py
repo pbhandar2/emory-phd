@@ -61,10 +61,12 @@ class CreateCacheTrace:
         for seed, bits, rate in product(seed_arr, bits_arr, rate_arr):
             cache_trace_path = self._sample_config.get_sample_cache_trace_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if cache_trace_path.exists():
+                print("Cache trace exists {}.".format(cache_trace_path))
                 continue 
 
             block_trace_path = self._sample_config.get_sample_trace_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if not block_trace_path.exists():
+                print("Block trace path does not exist {}.".format(block_trace_path))
                 continue 
             create_arr.append({
                 "block": block_trace_path,
