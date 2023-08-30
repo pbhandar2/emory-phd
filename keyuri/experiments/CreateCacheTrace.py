@@ -87,5 +87,6 @@ class CreateCacheTrace:
         for sample_index, sample_param in enumerate(create_arr):
             param_list[sample_index % batch_size].append(sample_param)
         
+        print(param_list)
         with Pool(batch_size) as process_pool:
             process_pool.map(self.create_process, param_list)
