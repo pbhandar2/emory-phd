@@ -7,15 +7,20 @@ from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
 class CreateCacheTrace:
-    def __init__(self, stack_binary_path) -> None:
+    def __init__(
+            self,
+            stack_binary_path: str,
+            global_config: GlobalConfig = GlobalConfig(),
+            sample_config: SampleExperimentConfig = SampleExperimentConfig()
+    ) -> None:
         """This class generates cache traces from block storage traces. 
         
         Attributes:
             _global_config: Global configuration of experiments. 
             _sample_config: Configuration of sampling experiments. 
         """
-        self._global_config = GlobalConfig()
-        self._sample_config = SampleExperimentConfig()
+        self._global_config = global_config
+        self._sample_config = sample_config
         self._stack_binary_path = stack_binary_path
 
     

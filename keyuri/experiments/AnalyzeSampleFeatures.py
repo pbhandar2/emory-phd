@@ -5,16 +5,20 @@ from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
 class AnalyzeSampleFeatures:
-    def __init__(self) -> None:
-        """This class analyzes and compares the features of samples and full block trace. 
+    def __init__(
+            self,
+            global_config: GlobalConfig = GlobalConfig(),
+            sample_config: SampleExperimentConfig = SampleExperimentConfig()
+    ) -> None:
+        """This class analyzes and compares the features of samples and full block trace.
         
         Attributes:
             _global_config: Global configuration of experiments. 
             _sample_config: Configuration of sampling experiments. 
         """
-        self._global_config = GlobalConfig()
-        self._sample_config = SampleExperimentConfig()
-    
+        self._global_config = global_config
+        self._sample_config = sample_config
+
 
     def analyze(
             self,
