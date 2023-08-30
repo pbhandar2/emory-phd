@@ -39,11 +39,11 @@ class AnalyzeSampleFeatures:
         
         seed_arr, bits_arr, rate_arr = self._sample_config.seed_arr, self._sample_config.bits_arr, self._sample_config.rate_arr
         for seed, bits, rate in product(seed_arr, bits_arr, rate_arr):
-            sample_trace_feature_file_path = self._sample_config.get_block_feature_file_path(sample_type, workload_type, workload_name, rate, bits, seed)
+            sample_trace_feature_file_path = self._sample_config.get_block_feature_file_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if not sample_trace_feature_file_path.exists():
                 continue 
 
-            percent_diff_feature_file_path = self._sample_config.get_percent_diff_feature_file_path(sample_type, workload_type, workload_name, rate, bits, seed)
+            percent_diff_feature_file_path = self._sample_config.get_percent_diff_feature_file_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if percent_diff_feature_file_path.exists():
                 continue 
 

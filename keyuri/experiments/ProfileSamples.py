@@ -74,11 +74,11 @@ class ProfileSamples:
         profile_param_arr = []
         seed_arr, bits_arr, rate_arr = self._sample_config.seed_arr, self._sample_config.bits_arr, self._sample_config.rate_arr
         for seed, bits, rate in product(seed_arr, bits_arr, rate_arr):
-            trace_path = self._sample_config.get_sample_trace_path(sample_type, workload_type, workload_name, rate, bits, seed)
+            trace_path = self._sample_config.get_sample_trace_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if not trace_path.exists():
                 continue 
 
-            feature_file_path = self._sample_config.get_block_feature_file_path(sample_type, workload_type, workload_name, rate, bits, seed)
+            feature_file_path = self._sample_config.get_block_feature_file_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if feature_file_path.exists():
                 if feature_file_path.is_dir():
                     feature_file_path.rmdir()

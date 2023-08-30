@@ -22,6 +22,25 @@ class GlobalConfig:
     sample_percent_diff_feature_dir_path = metadata_dir_path.joinpath("sample", "percent_diff_features")
 
 
+    def update_source_dir(self, new_source_dir:str):
+        self.source_dir_path = Path(new_source_dir)
+
+        self.metadata_dir_path = self.source_dir_path.joinpath("meta")
+
+        self.block_trace_dir_path = self.source_dir_path.joinpath("block_traces")
+        self.cache_trace_dir_path = self.source_dir_path.joinpath("block_cache_trace")
+        self.block_feature_dir_path = self.metadata_dir_path.joinpath("block_features")
+        self.cache_feature_dir_path = self.metadata_dir_path.joinpath("cache_features")
+
+        self.sample_block_trace_dir_path = self.source_dir_path.joinpath("sample_block_traces")
+        self.sample_cache_trace_dir_path = self.source_dir_path.joinpath("sample_block_cache_traces")
+        self.sample_block_feature_dir_path = self.metadata_dir_path.joinpath("sample", "block_features")
+        self.sample_cache_features_dir_path = self.metadata_dir_path.joinpath("sample", "cache_features")
+
+        self.sample_split_feature_dir_path = self.metadata_dir_path.joinpath("sample", "split_features")
+        self.sample_percent_diff_feature_dir_path = self.metadata_dir_path.joinpath("sample", "percent_diff_features")
+
+
     def get_block_trace_path(
             self,
             workload_type: str, 
@@ -79,9 +98,9 @@ class SampleExperimentConfig:
             workload_name: str,
             rate: int,
             bits: int,
-            seed: int 
+            seed: int,
+            global_config = GlobalConfig()
     ) -> Path:
-        global_config = GlobalConfig()
         trace_dir = global_config.sample_block_trace_dir_path
         return trace_dir.joinpath(
                 sample_type,
@@ -98,9 +117,9 @@ class SampleExperimentConfig:
             workload_name: str,
             rate: int,
             bits: int,
-            seed: int 
+            seed: int,
+            global_config = GlobalConfig()
     ) -> Path:
-        global_config = GlobalConfig()
         trace_dir = global_config.sample_cache_trace_dir_path
         return trace_dir.joinpath(
                 sample_type,
@@ -117,9 +136,9 @@ class SampleExperimentConfig:
             workload_name: str,
             rate: int,
             bits: int,
-            seed: int 
+            seed: int,
+            global_config = GlobalConfig()
     ) -> Path:
-        global_config = GlobalConfig()
         feature_dir = global_config.sample_split_feature_dir_path
         return feature_dir.joinpath(
                 sample_type,
@@ -136,9 +155,9 @@ class SampleExperimentConfig:
             workload_name: str,
             rate: int,
             bits: int,
-            seed: int 
+            seed: int,
+            global_config = GlobalConfig()
     ) -> Path:
-        global_config = GlobalConfig()
         feature_dir = global_config.sample_block_feature_dir_path
         return feature_dir.joinpath(
                 sample_type,
@@ -155,9 +174,9 @@ class SampleExperimentConfig:
             workload_name: str,
             rate: int,
             bits: int,
-            seed: int 
+            seed: int,
+            global_config = GlobalConfig()
     ) -> Path:
-        global_config = GlobalConfig()
         feature_dir = global_config.sample_cache_features_dir_path
         return feature_dir.joinpath(
                 sample_type,
@@ -174,9 +193,9 @@ class SampleExperimentConfig:
             workload_name: str,
             rate: int,
             bits: int,
-            seed: int 
+            seed: int,
+            global_config = GlobalConfig()
     ) -> Path:
-        global_config = GlobalConfig()
         feature_dir = global_config.sample_percent_diff_feature_dir_path
         return feature_dir.joinpath(
                 sample_type,

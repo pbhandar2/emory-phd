@@ -24,5 +24,6 @@ if __name__ == "__main__":
     if args.source_dir_path != global_config.source_dir_path:
         global_config.source_dir_path = args.source_dir_path 
 
+    print("Source dir: {}".format(global_config.source_dir_path))
     create_samples = CreateCacheTrace(args.stack_binary_path, global_config=global_config, sample_config=sample_config)
     create_samples.create(args.workload_name, workload_type=args.workload_type)

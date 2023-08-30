@@ -78,12 +78,12 @@ class CreateSamples:
         sample_param_arr = []
         seed_arr, bits_arr, rate_arr = self._sample_config.seed_arr, self._sample_config.bits_arr, self._sample_config.rate_arr
         for seed, bits, rate in product(seed_arr, bits_arr, rate_arr):
-            sample_feature_file_path = self._sample_config.get_split_feature_path(sample_type, workload_type, workload_name, rate, bits, seed)
+            sample_feature_file_path = self._sample_config.get_split_feature_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if sample_feature_file_path.exists():
                 continue 
 
             block_trace_path = self._global_config.get_block_trace_path(workload_type, workload_name)
-            sample_trace_path = self._sample_config.get_sample_trace_path(sample_type, workload_type, workload_name, rate, bits, seed)
+            sample_trace_path = self._sample_config.get_sample_trace_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             sampling_param_dict = {
                 "block_trace_path": block_trace_path,
                 "sample_trace_path": sample_trace_path,
