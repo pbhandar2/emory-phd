@@ -17,7 +17,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.source_dir_path != global_config.source_dir_path:
-        global_config.source_dir_path = args.source_dir_path 
+        global_config.update_source_dir(args.source_dir_path) 
 
     print("Source dir: {}".format(global_config.source_dir_path))
     profile_samples = ProfileSamples(global_config=global_config, sample_config=sample_config)
