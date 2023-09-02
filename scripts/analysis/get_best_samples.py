@@ -7,7 +7,7 @@ from keyuri.analysis.SampleMetadata import SampleMetadata
 
 def main():
     global_config = GlobalConfig()
-    
+
     parser = ArgumentParser("Plot feature while varying bits.")
     parser.add_argument("workload_name", help="Name of the workload")
     parser.add_argument("--workload_type", default="cp", help="Type of the workload")
@@ -21,7 +21,8 @@ def main():
     sample_metadata = SampleMetadata(args.workload_name, global_config=global_config)
 
     sample_metadata = SampleMetadata(args.workload_name)
-    sample_metadata.print_best_samples()
+    df = sample_metadata.load_percent_diff_df().sort_values(by=["mean_overall_error"])
+    df.to_csv("files/percent_diff/{}_{}.csv".format(args.workload_type, args.workload_name), index=False)
 
 
 if __name__ == "__main__":
