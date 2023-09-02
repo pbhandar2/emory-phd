@@ -10,13 +10,18 @@ class GlobalConfig:
 
     block_trace_dir_path = source_dir_path.joinpath("block_traces")
     cache_trace_dir_path = source_dir_path.joinpath("block_cache_trace")
-    block_feature_dir_path = metadata_dir_path.joinpath("block_features")
-    cache_feature_dir_path = metadata_dir_path.joinpath("cache_features")
-
     sample_block_trace_dir_path = source_dir_path.joinpath("sample_block_traces")
     sample_cache_trace_dir_path = source_dir_path.joinpath("sample_block_cache_traces")
+
+    block_feature_dir_path = metadata_dir_path.joinpath("block_features")
+    cache_feature_dir_path = metadata_dir_path.joinpath("cache_features")
+    cumulative_features_dir_path = metadata_dir_path.joinpath("cumulative_features")
     sample_block_feature_dir_path = metadata_dir_path.joinpath("sample", "block_features")
     sample_cache_features_dir_path = metadata_dir_path.joinpath("sample", "cache_features")
+    sample_cumulative_features_dir_path = metadata_dir_path.joinpath("sample", "cumulative_features")
+
+    rd_hist_dir_path = metadata_dir_path.joinpath("rd_hist")
+    sample_rd_hist_dir_path = metadata_dir_path.joinpath("sample_rd_hist")
 
     sample_split_feature_dir_path = metadata_dir_path.joinpath("sample", "split_features")
     sample_percent_diff_feature_dir_path = metadata_dir_path.joinpath("sample", "percent_diff_features")
@@ -31,12 +36,14 @@ class GlobalConfig:
         self.cache_trace_dir_path = self.source_dir_path.joinpath("block_cache_trace")
         self.block_feature_dir_path = self.metadata_dir_path.joinpath("block_features")
         self.cache_feature_dir_path = self.metadata_dir_path.joinpath("cache_features")
+        self.rd_hist_dir_path = self.metadata_dir_path.joinpath("rd_hist")
 
+        self.sample_rd_hist_dir_path = self.metadata_dir_path.joinpath("sample_rd_hist")
         self.sample_block_trace_dir_path = self.source_dir_path.joinpath("sample_block_traces")
         self.sample_cache_trace_dir_path = self.source_dir_path.joinpath("sample_block_cache_traces")
+
         self.sample_block_feature_dir_path = self.metadata_dir_path.joinpath("sample", "block_features")
         self.sample_cache_features_dir_path = self.metadata_dir_path.joinpath("sample", "cache_features")
-
         self.sample_split_feature_dir_path = self.metadata_dir_path.joinpath("sample", "split_features")
         self.sample_percent_diff_feature_dir_path = self.metadata_dir_path.joinpath("sample", "percent_diff_features")
 
@@ -67,6 +74,18 @@ class GlobalConfig:
                 workload_type,
                 "{}.json".format(workload_name)
         )
+
+
+    def get_rd_hist_file_path(
+            self,
+            workload_type: str,
+            workload_name: str
+    ) -> Path:
+        feature_dir = self.rd_hist_dir_path
+        return feature_dir.joinpath(
+                workload_type,
+                "{}.csv".format(workload_name)
+        )
     
 
     def get_cache_feature_file_path(
@@ -75,6 +94,18 @@ class GlobalConfig:
             workload_name: str,
     ) -> Path:
         feature_dir = self.cache_feature_dir_path
+        return feature_dir.joinpath(
+                workload_type,
+                "{}.json".format(workload_name)
+        )
+    
+
+    def get_cumulative_feature_file_path(
+            self,
+            workload_type: str,
+            workload_name: str,
+    ) -> Path:
+        feature_dir = self.cumulative_features_dir_path
         return feature_dir.joinpath(
                 workload_type,
                 "{}.json".format(workload_name)
@@ -195,6 +226,43 @@ class SampleExperimentConfig:
             global_config = GlobalConfig()
     ) -> Path:
         feature_dir = global_config.sample_percent_diff_feature_dir_path
+        return feature_dir.joinpath(
+                sample_type,
+                workload_type,
+                workload_name,
+                "{}_{}_{}.json".format(rate, bits, seed)
+        )
+    
+    def get_rd_hist_file_path(
+            self,
+            sample_type: str,
+            workload_type: str,
+            workload_name: str,
+            rate: int,
+            bits: int,
+            seed: int,
+            global_config = GlobalConfig()
+    ) -> Path:
+        feature_dir = global_config.sample_rd_hist_dir_path
+        return feature_dir.joinpath(
+                sample_type,
+                workload_type,
+                workload_name,
+                "{}_{}_{}.json".format(rate, bits, seed)
+        )
+    
+
+    def get_cumulative_feature_file_path(
+            self,
+            sample_type: str,
+            workload_type: str,
+            workload_name: str,
+            rate: int,
+            bits: int,
+            seed: int,
+            global_config = GlobalConfig()
+    ) -> Path:
+        feature_dir = global_config.sample_cumulative_features_dir_path
         return feature_dir.joinpath(
                 sample_type,
                 workload_type,

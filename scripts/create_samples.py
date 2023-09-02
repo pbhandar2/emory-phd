@@ -2,11 +2,10 @@ from argparse import ArgumentParser
 from pathlib import Path 
 
 from keyuri.experiments.CreateSamples import CreateSamples
-
 from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
-if __name__ == "__main__":
+def main():
     global_config = GlobalConfig()
     sample_config = SampleExperimentConfig()
 
@@ -20,6 +19,10 @@ if __name__ == "__main__":
     if args.source_dir_path != global_config.source_dir_path:
         global_config.update_source_dir(args.source_dir_path) 
 
-    print("Source dir: {}".format(global_config.source_dir_path))
+    print("Create samples in source dir, {}".format(global_config.source_dir_path))
     create_samples = CreateSamples(global_config=global_config, sample_config=sample_config)
     create_samples.create(args.workload_name, workload_type=args.workload_type, batch_size=args.batch_size)
+
+
+if __name__ == "__main__":
+    main()

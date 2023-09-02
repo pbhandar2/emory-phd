@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from pathlib import Path 
 
-from keyuri.experiments.AnalyzeSampleFeatures import AnalyzeSampleFeatures
+from keyuri.analysis.AnalyzeSampleFeatures import AnalyzeSampleFeatures
 
 from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
