@@ -24,6 +24,13 @@ def main():
     df = sample_metadata.load_percent_diff_df().sort_values(by=["mean_overall_error"])
     df.to_csv("files/percent_diff/{}_{}.csv".format(args.workload_type, args.workload_name), index=False)
 
+    for rate, group_df in df.groupby(by=["rate"]):
+        print("Sample Rate: {}".format(rate))
+        cur_df = group_df.sort_values(by=['mean_overall_error'])
+        print(cur_df[['rate', 'seed', 'bit', 'read_size_avg', 'write_size_avg', "write_io_req_split", 'iat_avg', 'jd_avg', 'mean_overall_error']].sort_values(by=['bit']))
+    
+
+
 
 if __name__ == "__main__":
     main()

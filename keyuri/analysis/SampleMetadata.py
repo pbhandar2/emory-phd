@@ -176,15 +176,15 @@ class SampleMetadata:
             rate, bit, seed = percent_diff_file.stem.split("_")
             with percent_diff_file.open('r') as percent_diff_file_handle:
                 percent_diff_dict = json_load(percent_diff_file_handle)
-            percent_diff_dict['rate'] = rate 
-            percent_diff_dict['bit'] = bit 
-            percent_diff_dict['seed'] = seed 
+            percent_diff_dict['rate'] = int(rate)
+            percent_diff_dict['bit'] = int(bit)
+            percent_diff_dict['seed'] = int(seed)
             percent_diff_dict['mean_percent_hit_rate_error'] = self.get_mean_hit_rate_error(percent_diff_dict)
             percent_diff_dict['mean_overall_error'] = mean([abs(percent_diff_dict['mean_percent_hit_rate_error']),
                                                             abs(percent_diff_dict["iat_avg"]),
                                                             abs(percent_diff_dict["read_size_avg"]),
                                                             abs(percent_diff_dict["write_size_avg"]),
-                                                            abs(percent_diff_dict["jd_avg"])])
+                                                            abs(percent_diff_dict["write_io_req_split"])])
             percent_diff_array.append(percent_diff_dict)
         return DataFrame(percent_diff_array)
 
@@ -194,7 +194,7 @@ class SampleMetadata:
         """
         df = self.load_percent_diff_df().sort_values(by=["mean_overall_error"])
         for rate, group_df in df.groupby(by=["rate"]):
-            print(group_df[["bit", "rate", "seed", "mean_overall_error", "iat_avg", "read_size_avg", "write_size_avg", 'mean_percent_hit_rate_error', "jd_avg"]].to_string(index=False))
+            print(group_df[["bit", "rate", "seed", "mean_overall_error", "iat_avg", "read_size_avg", "write_size_avg", 'mean_percent_hit_rate_error', "jd_avg"]].iloc[:2].to_string(index=False))
 
             
     @staticmethod
