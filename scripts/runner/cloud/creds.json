@@ -1,0 +1,12 @@
+{
+    "cloudlab": {
+        "user": "pbhandar",
+        "type": "file",
+        "val": "~/.ssh/id_ed25519"
+    },
+    "cloudlab_vishwa": {
+        "user": "vishwa",
+        "type": "file",
+        "val": "~/.ssh/id_ed25519"
+    }
+}

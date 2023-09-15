@@ -59,47 +59,6 @@ class ReplayDB:
         return latest_backup_name
     
 
-    def init_output_path(self, machine_name: str, replay_params: dict) -> None:
-        """Init output directory for machine name and replay parameters. 
-
-        Args:
-            machine_name: Name of the machine. 
-            replay_params: Dictionary of replay parameters. 
-        """
-        return self.get_output_path(machine_name, replay_params).mkdir(exist_ok=True, parents=True)
-    
-
-    def get_output_path(self, machine_name: str, replay_params: dict) -> Path:
-        """Create the output directory of replay. 
-        
-        Args:
-            machine_name: Name of the machine. 
-            replay_params: Dictionary of replay parameters. 
-        """
-        replay_dir = self._output_dir.joinpath(machine_name)
-        replay_dir = replay_dir.joinpath(replay_params["workload_type"], replay_params["workload_name"])
-        replay_output_dir_name = "q={}_bt={}_at={}_t1={}_t2={}_rr={}_it={}".format(replay_params["max_pending_block_req_count"],
-                                                                                   replay_params["num_block_threads"],
-                                                                                   replay_params["num_async_threads"],
-                                                                                   replay_params["t1_size_mb"],
-                                                                                   replay_params["t2_size_mb"],
-                                                                                   replay_params["replay_rate"],
-                                                                                   replay_params["iteration"])
-        return replay_dir.joinpath(replay_output_dir_name)
-    
-
-    def has_started(self, machine_name: str, replay_params: dict) -> bool:
-        """Check if replay of the given parameters has not been started. 
-
-        Args:
-            replay_params: Dictionary of replay parameters. 
-        
-        Returns:
-            has_started: Boolean indicating if replay of given parameters has started (live or done). 
-        """
-        return self.get_output_path(machine_name, replay_params).exists()
-    
-
     def delete_dead_experiments(
             self, 
             live_host_name_list: list 

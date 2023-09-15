@@ -14,6 +14,7 @@ def main():
     parser.add_argument("--workload_type", default="cp", type=str, help="Workload type.")
     parser.add_argument("--source_dir_path", type=Path, default=global_config.source_dir_path, help="Source directory of all data.")
     parser.add_argument("--batch_size", type=int, default=4, help="Number of processes to spawn for processing.")
+    parser.add_argument("--force", default=False, type=bool, help="Boolean indicating whether to force recomputation even if file exists.")
     args = parser.parse_args()
 
     if args.source_dir_path != global_config.source_dir_path:
@@ -21,7 +22,7 @@ def main():
 
     print("Profiling samples in source dir, {}.".format(global_config.source_dir_path))
     profile_samples = ProfileSamples(global_config=global_config, sample_config=sample_config)
-    profile_samples.profile(args.workload_name, workload_type=args.workload_type, batch_size=args.batch_size)
+    profile_samples.profile(args.workload_name, workload_type=args.workload_type, batch_size=args.batch_size, force=args.force)
 
 
 if __name__ == "__main__":

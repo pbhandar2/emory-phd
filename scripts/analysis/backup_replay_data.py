@@ -1,12 +1,20 @@
+"""This script backups the output of trace replay if necessary. 
+
+Usage:
+    python3 backup_replay_data.py --replay_output_dir_path /path/to/replay --replay_output_backup_dir /path/to/backup
+"""
 from pathlib import Path 
 from argparse import ArgumentParser 
 
 from keyuri.analysis.ReplayDB import ReplayDB
 
-def backup(main_dir: Path, backup_dir: Path) -> None:
+
+def backup(
+        main_dir: Path, 
+        backup_dir: Path
+) -> None:
     db = ReplayDB(main_dir, backup_dir)
     latest_backup_dir_name = db.get_current_backup()
-    print(latest_backup_dir_name)
     if len(latest_backup_dir_name):
         print("Backup not necessary. Updated backup in {}".format(backup_dir.joinpath(latest_backup_dir_name)))
     else:
@@ -27,7 +35,6 @@ def main():
                         help="Path of directory containing replay output file.")
     args = parser.parse_args()
     backup(args.replay_output_dir, args.replay_output_backup_dir)
-
 
 
 if __name__ == "__main__":

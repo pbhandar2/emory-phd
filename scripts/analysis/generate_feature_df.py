@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 from pathlib import Path 
+from pandas import read_csv 
 
 from keyuri.analysis.SampleMetadata import SampleMetadata
 
@@ -14,6 +15,7 @@ def main():
     parser.add_argument("--workload_type", default="cp", type=str, help="Workload type.")
     parser.add_argument("--source_dir_path", type=Path, default=global_config.source_dir_path, help="Source directory of all data.")
     parser.add_argument("--batch_size", type=int, default=4, help="Number of processes to spawn for processing.")
+    parser.add_argument("--force", default=False, type=bool, help="Boolean indicating whether to force recomputation even if file exists.")
     args = parser.parse_args()
 
     if args.source_dir_path != global_config.source_dir_path:
@@ -27,7 +29,12 @@ def main():
         cumulative_feature_file_path.parent.mkdir(exist_ok=True, parents=True)
         sample_metadata.generate_cumulative_feature_file(cumulative_feature_file_path)
     else:
-        print("Cumulative feature file already exists! {}".format(cumulative_feature_file_path))
+        feature_df = read_csv(cumulative_feature_file_path)
+        if "read_hr_1.0" not in list(feature_df.columns) or args.force:
+            print("Cumulative feature file is outdated! Recreating {}".format(cumulative_feature_file_path))
+            sample_metadata.generate_cumulative_feature_file(cumulative_feature_file_path)
+        else:
+            print("Cumulative feature file already exists! {}".format(cumulative_feature_file_path))
 
 
 if __name__ == "__main__":

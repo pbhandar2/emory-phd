@@ -1,25 +1,24 @@
-"""This script generates features from the sample and compares it to the features of the original. 
+"""This script generates features from the cache traces. 
 
-It uses the multiprocessing module for parallel processing, and the BlockTraceProfiler and BlockAccessTraceProfiler 
+It uses the multiprocessing module for parallel processing, and BlockAccessTraceProfiler 
 from cydonia package for profiling the samples. 
 
 Typical usage example:
-    profile_samples = ProfileSamples()
-    profile_samples.profile()
+    profile_cache_traces = ProfileCacheTraces()
+    profile_cache_traces.profile()
 """
 
-from json import dump, load 
 from itertools import product 
 from pathlib import Path 
 from multiprocessing import cpu_count, Pool
 
-from cydonia.profiler.CPReader import CPReader
-from cydonia.profiler.BlockTraceProfiler import BlockTraceProfiler
+from cydonia.profiler.BlockAccessTraceProfiler import BlockAccessTraceProfiler
+from cydonia.profiler.CacheTraceProfiler import CacheTraceProfiler
 
 from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
-class ProfileSamples:
+class ProfileCacheTraces:
     def __init__(
             self,
             global_config: GlobalConfig = GlobalConfig(),
@@ -46,14 +45,10 @@ class ProfileSamples:
         """
         for profile_params in param_arr:
             print("Profiling {}".format(profile_params))
-            reader = CPReader(profile_params["trace_path"])
-            profiler = BlockTraceProfiler(reader)
-            profiler.run()
-
-            stat = profiler.get_stat()
+            profiler = CacheTraceProfiler(str(profile_params["trace_path"].absolute()))
             profile_params["feature_path"].parent.mkdir(exist_ok=True, parents=True)
-            with profile_params["feature_path"].open("w+") as feature_file_handle:
-                dump(stat, feature_file_handle, indent=2)
+            profiler.create_rd_hist_file(profile_params["feature_path"])
+            print("Profiling {} completed.")
 
 
     def profile(
@@ -61,8 +56,7 @@ class ProfileSamples:
             workload_name: str, 
             workload_type: str = "cp",
             batch_size: int = 4,
-            sample_type: str = "iat",
-            force: bool = False 
+            sample_type: str = "iat"
     ) -> None:
         """Profile samples for a given workload.
 
@@ -75,31 +69,25 @@ class ProfileSamples:
         profile_param_arr = []
         seed_arr, bits_arr, rate_arr = self._sample_config.seed_arr, self._sample_config.bits_arr, self._sample_config.rate_arr
         for seed, bits, rate in product(seed_arr, bits_arr, rate_arr):
-            trace_path = self._sample_config.get_sample_trace_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
+            trace_path = self._sample_config.get_sample_cache_trace_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
             if not trace_path.exists():
                 continue 
 
-            feature_file_path = self._sample_config.get_block_feature_file_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
-            if not force and feature_file_path.exists():
-                if feature_file_path.is_dir():
-                    feature_file_path.rmdir()
-                else:
-                    with feature_file_path.open("r") as feature_file_handle:
-                        feature_dict = load(feature_file_handle)
-                    
-                    if "iat_read_avg" in feature_dict:
-                        continue 
-                    
+            feature_file_path = self._sample_config.get_rd_hist_file_path(sample_type, workload_type, workload_name, rate, bits, seed, global_config=self._global_config)
+            if feature_file_path.exists():
+                assert feature_file_path.is_file(), "Feauture file {} is not a file.".format(feature_file_path)
+                continue 
+
             profile_param = {
                 "trace_path": trace_path,
                 "feature_path": feature_file_path
             }
             profile_param_arr.append(profile_param)
         else:
-            feature_file_path = self._global_config.get_block_feature_file_path(workload_type, workload_name)
-            if not feature_file_path.exists() or force:
+            feature_file_path = self._global_config.get_rd_hist_file_path(workload_type, workload_name)
+            if not feature_file_path.exists():
                 profile_param = {
-                    "trace_path": self._global_config.get_block_trace_path(workload_type, workload_name),
+                    "trace_path": self._global_config.get_block_cache_trace_path(workload_type, workload_name),
                     "feature_path": feature_file_path
                 }
                 profile_param_arr.append(profile_param)
