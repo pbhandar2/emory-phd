@@ -13,8 +13,8 @@ def main():
 
     cache_trace = CacheTrace(args.stack_binary_path)
     args.cache_trace_path.parent.mkdir(exist_ok=True, parents=True)
-    cache_trace.generate_cache_trace(args.block_trace_path, args.cache_trace_path)
-    print("Generated cache trace {} for block trace {}".format(args.cache_trace_path, args.block_trace_path))
+    cache_trace.generate_cache_trace(args.blk_trace_path, args.cache_trace_path)
+    print("Generated cache trace {} for block trace {}".format(args.cache_trace_path, args.blk_trace_path))
 
 
 if __name__ == "__main__":

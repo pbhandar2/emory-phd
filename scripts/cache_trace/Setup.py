@@ -24,7 +24,7 @@ class Setup:
     
 
     def install_cmake(self) -> int:
-        install_cmd = "sudo apt-get update; sudo apt install -y clang"
+        install_cmd = "sudo apt-get update; sudo apt install -y clang python3-pip"
         _, _, exit_code = self._node.exec_command(install_cmd.split(' '))
         return exit_code
 
@@ -36,14 +36,19 @@ class Setup:
             _, _, exit_code = self._node.exec_command(full_cmd.split(' '))
             return exit_code
         else:
-            return 0 
+            update_cmd = "cd {}; git pull origin main; pip3 install . --user;".format(self._remote_repo_dir_str)
+            stdin, stdout, exit_code = self._node.exec_command(update_cmd.split(' '))
+            print(stdout)
+            return exit_code
     
 
     def update_repo(self) -> int:
         cydonia_repo_dir = "cd {}/modules/Cydonia/".format(self._remote_repo_dir_str)
-        cydonia_update_cmd = "{}; git submodule init; git submodule update;".format(cydonia_repo_dir)
+        cydonia_update_cmd = "{}; git submodule init; git submodule update; pip3 install . --user;".format(cydonia_repo_dir)
         _, _, exit_code = self._node.exec_command(cydonia_update_cmd.split(' '))
         return exit_code
+    
+
     
 
     def setup_stack_distance(self) -> None:

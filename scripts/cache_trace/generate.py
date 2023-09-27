@@ -37,9 +37,9 @@ def main():
     assert cur_node.file_exists(remote_blk_trace_path), \
         "Block trace was not transfered to remote node."
 
-    change_dir_cmd = "cd ~/disk/emory-phd/scripts"
+    change_dir_cmd = "cd ~/disk/emory-phd/scripts/cache_trace"
     stack_binary_path = "~/disk/emory-phd/modules/Cydonia/scripts/stack-distance/stack-distance"
-    create_cache_trace_cmd = "{}; python3 generate.py {} {} {}".format(change_dir_cmd, 
+    create_cache_trace_cmd = "{}; python3 runner.py {} {} {}".format(change_dir_cmd, 
                                                                        remote_blk_trace_path, 
                                                                        remote_cache_trace_path,
                                                                        stack_binary_path)
