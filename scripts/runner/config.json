@@ -39,54 +39,19 @@
   },
   "nodes": {
     "vish-c220g1_node0": {
-      "host": "c220g1-031123.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
+      "host": "c220g5-111227.wisc.cloudlab.us",
+      "cred": "cloudlab",
+      "mount": "c220g5"
     },
     "vish-c220g1_node1": {
-      "host": "c220g1-031110.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
+      "host": "c220g5-111207.wisc.cloudlab.us",
+      "cred": "cloudlab",
+      "mount": "c220g5"
     },
     "vish-c220g1_node2": {
-      "host": "c220g1-031115.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
-    },
-    "vish-c220g1_node3": {
-      "host": "c220g1-031124.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
-    },
-    "vish-c220g1_node4": {
-      "host": "c220g1-031122.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
-    },
-    "vish-c220g1_node5": {
-      "host": "c220g1-031107.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
-    },
-    "vish-c220g1_node6": {
-      "host": "c220g1-031108.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
-    },
-    "vish-c220g1_node7": {
-      "host": "c220g1-031105.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
-    },
-    "vish-c220g1_node8": {
-      "host": "c220g1-031127.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
-    },
-    "vish-c220g1_node9": {
-      "host": "c220g1-031128.wisc.cloudlab.us",
-      "cred": "cloudlab_vishwa",
-      "mount": "c220g1"
+      "host": "c220g5-111205.wisc.cloudlab.us",
+      "cred": "cloudlab",
+      "mount": "c220g5"
     }
   }
 }

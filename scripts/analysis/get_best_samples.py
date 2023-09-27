@@ -27,10 +27,8 @@ def main():
     for rate, group_df in df.groupby(by=["rate"]):
         print("Sample Rate: {}".format(rate))
         cur_df = group_df.sort_values(by=['mean_overall_error'])
-        print(cur_df[['rate', 'seed', 'bit', 'read_size_avg', 'write_size_avg', "write_io_req_split", 'iat_avg', 'jd_avg', 'mean_overall_error']].sort_values(by=['bit']))
+        print(cur_df[['rate', 'seed', 'bit', 'read_size_avg', 'write_size_avg', "write_block_req_split", 'iat_read_avg', 'iat_write_avg']].sort_values(by=['bit']))
     
-
-
 
 if __name__ == "__main__":
     main()

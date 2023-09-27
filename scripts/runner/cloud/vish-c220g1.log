@@ -1,448 +1,134 @@
-Created:        2023-08-24 08:46:46
-op:             create_instance
-uuid:           0c1a2984-428d-11ee-9f39-e4434b2381fc
+Created:        2023-09-27 12:01:16
+op:             create_slivers
+uuid:           0c22284d-5d5f-11ee-9f39-e4434b2381fc
 
 ----------------------------------
-linkSpeed
-$VAR1 = '0';
-tempFileSystemSize
-$VAR1 = '0';
-useVMs
-$VAR1 = 'False';
-tempFileSystemMax
-$VAR1 = 'False';
-tempFileSystemMount
-$VAR1 = '/mydata';
-bestEffort
-$VAR1 = 'False';
-phystype
-$VAR1 = 'c220g1';
-sameSwitch
-$VAR1 = 'False';
-osImage
-$VAR1 = 'urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD';
-nodeCount
-$VAR1 = '10';
-startVNC
-$VAR1 = 'False';
-deprecated
-$VAR1 = {
-          'urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD' => {
-                                                                               'message' => undef,
-                                                                               'deprecated' => undef,
-                                                                               'iserror' => 0
-                                                                             }
-        };
-Using configuration from /usr/testbed/lib/ssl/ca.cnf
-Check that the request matches the signature
-Signature ok
-The Subject's Distinguished Name is as follows
-countryName           :PRINTABLE:'US'
-stateOrProvinceName   :PRINTABLE:'Utah'
-localityName          :PRINTABLE:'Salt Lake City'
-organizationName      :PRINTABLE:'Utah Network Testbed'
-organizationalUnitName:PRINTABLE:'aptlab.MicroThreads.cachelib-1'
-commonName            :PRINTABLE:'0c940d88-428d-11ee-9f39-e4434b2381fc'
-emailAddress          :IA5STRING:'vseshag@emory.edu'
-Certificate is to be certified until Apr 20 14:46:49 2025 GMT (605 days)
-
-Write out database with 1 new entries
-Data Base Updated
-Limiting free extensions to five days, using 0 reservable nodes or radios or types
-
-User:    urn:publicid:IDN+emulab.net+user+vishwa
-Email:   vseshag@emory.edu
-Profile: small-lan:36
-Slice:   urn:publicid:IDN+emulab.net:microthreads+slice+cachelib-1
-Server:  www.cloudlab.us
-Duration: 16 hours
-Cluster: urn:publicid:IDN+wisc.cloudlab.us+authority+cm
-
-{"PROFILE_UUID":"","RERUN_PARAMSET":"","RERUN_INSTANCE":"","SELECTED_PARAMSET":"","SELECTED_INSTANCE":"","MODIFIED_PARAMS":"true"}
-
-<rspec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jacks="http://www.protogeni.net/resources/rspec/ext/jacks/1" xmlns:client="http://www.protogeni.net/resources/rspec/ext/client/1" xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" xmlns="http://www.geni.net/resources/rspec/3" xsi:schemaLocation="http://www.geni.net/resources/rspec/3 http://www.geni.net/resources/rspec/3/request.xsd" type="request">
-  <rspec_tour xmlns="http://www.protogeni.net/resources/rspec/ext/apt-tour/1">
-    <description type="markdown">Variable number of nodes in a lan. You have the option of picking from one
-of several standard images we provide, or just use the default (typically a recent
-version of Ubuntu). You may also optionally pick the specific hardware type for
-all the nodes in the lan. </description>
-    <instructions type="markdown">Wait for the experiment to start, and then log into one or more of the nodes
-by clicking on them in the toplogy, and choosing the `shell` menu option.
-Use `sudo` to run root commands. 
-</instructions>
-  </rspec_tour>
-  <link client_id="link-1">
-    <interface_ref client_id="node0:eth1"/>
-    <interface_ref client_id="node1:eth1"/>
-    <interface_ref client_id="node2:eth1"/>
-    <interface_ref client_id="node3:eth1"/>
-    <interface_ref client_id="node4:eth1"/>
-    <interface_ref client_id="node5:eth1"/>
-    <interface_ref client_id="node6:eth1"/>
-    <interface_ref client_id="node7:eth1"/>
-    <interface_ref client_id="node8:eth1"/>
-    <interface_ref client_id="node9:eth1"/>
-    <link_type name="lan"/>
-  <component_manager name="urn:publicid:IDN+wisc.cloudlab.us+authority+cm"/></link>
-  <node client_id="node0" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node0:eth1"/>
-  </node>
-  <node client_id="node1" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node1:eth1"/>
-  </node>
-  <node client_id="node2" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node2:eth1"/>
-  </node>
-  <node client_id="node3" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node3:eth1"/>
-  </node>
-  <node client_id="node4" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node4:eth1"/>
-  </node>
-  <node client_id="node5" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node5:eth1"/>
-  </node>
-  <node client_id="node6" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node6:eth1"/>
-  </node>
-  <node client_id="node7" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node7:eth1"/>
-  </node>
-  <node client_id="node8" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node8:eth1"/>
-  </node>
-  <node client_id="node9" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm">
-    <sliver_type name="raw">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node9:eth1"/>
-  </node>
-  <data_set xmlns="http://www.protogeni.net/resources/rspec/ext/profile-parameters/1">
-    <data_item name="emulab.net.parameter.linkSpeed">0</data_item>
-    <data_item name="emulab.net.parameter.tempFileSystemSize">0</data_item>
-    <data_item name="emulab.net.parameter.useVMs">False</data_item>
-    <data_item name="emulab.net.parameter.tempFileSystemMax">False</data_item>
-    <data_item name="emulab.net.parameter.tempFileSystemMount">/mydata</data_item>
-    <data_item name="emulab.net.parameter.bestEffort">False</data_item>
-    <data_item name="emulab.net.parameter.phystype">c220g1</data_item>
-    <data_item name="emulab.net.parameter.sameSwitch">False</data_item>
-    <data_item name="emulab.net.parameter.osImage">urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD</data_item>
-    <data_item name="emulab.net.parameter.nodeCount">10</data_item>
-    <data_item name="emulab.net.parameter.startVNC">False</data_item>
-  </data_set>
-<emulab:portal name="cloudlab" url="https://www.cloudlab.us/status.php?uuid=0c1a2984-428d-11ee-9f39-e4434b2381fc" project="MicroThreads" experiment="cachelib-1" sequence="1692888410"/></rspec>
-0c940d88-428d-11ee-9f39-e4434b2381fc: experiment has no appropriate aggregates.
+0cb681bf-5d5f-11ee-9f39-e4434b2381fc: experiment has no appropriate aggregates.
 Server returned early for async mode
 Resolve returned 0 from urn:publicid:IDN+wisc.cloudlab.us+authority+cm
 We got a manifest from resolve at urn:publicid:IDN+wisc.cloudlab.us+authority+cm
 Successfully pushed the manifest to Cloudlab Wisconsin
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:47:38:077488: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:47:54:835838: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:48:11:600727: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:48:28:369542: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:48:45:137944: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:49:01:904394: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:49:18:689098: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:49:35:494217: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:49:52:256862: code:0
-Frisbee progress: utc:1692888586, emulab-ops/UBUNTU20-64-STD:10:1535MB
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:50:09:036794: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:50:25:831061: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:50:42:507397: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:50:59:268740: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:51:16:035386: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:51:32:819071: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:51:49:547176: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:52:06:322490: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:52:23:105846: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:52:39:777293: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:52:56:532338: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:53:13:283056: code:0
-WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 08:53:30:051015: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:01:58:215980: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:02:14:952392: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:02:31:695285: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:02:48:431887: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:03:05:160489: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:03:21:895746: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:03:38:632538: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:03:55:289138: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:04:11:983610: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:04:28:710918: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:04:45:429501: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:05:02:145137: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:05:18:879561: code:0
+Frisbee progress: utc:1695837908, emulab-ops/UBUNTU20-64-STD:10:1435MB
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:05:35:616738: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:05:52:353868: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:06:09:084220: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:06:25:834241: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:06:42:565591: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:06:59:347170: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:07:16:079295: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:07:32:847651: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:07:49:682852: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:08:06:409642: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:08:23:166988: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:08:39:903732: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:08:56:638969: code:0
+WaitForSliver urn:publicid:IDN+wisc.cloudlab.us+authority+cm : 12:09:13:364193: code:0
 WaitForSlivers: urn:publicid:IDN+wisc.cloudlab.us+authority+cm: code:0
 $VAR1 = {
-          'node3' => {
-                       'sliver_data' => {
-                                          'component_urn' => 'c220g1-031124',
-                                          'rawstate' => 'ISUP',
-                                          'error' => '',
-                                          'status' => 'ready',
-                                          'client_id' => 'node3',
-                                          'recovery' => '0',
-                                          'utc' => '1692888796',
-                                          'state' => 'started',
-                                          'nodestatus' => 'up'
-                                        },
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767584',
-                       'resource_id' => 'c220g1-031124',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'modified' => '2023-08-24 08:53:30',
-                       'client_id' => 'node3',
-                       'timestamp' => 1692888796,
-                       'frisbee_data' => undef
-                     },
-          'node4' => {
-                       'sliver_data' => {
-                                          'client_id' => 'node4',
-                                          'error' => '',
-                                          'status' => 'ready',
-                                          'component_urn' => 'c220g1-031122',
-                                          'rawstate' => 'ISUP',
-                                          'state' => 'started',
-                                          'nodestatus' => 'up',
-                                          'utc' => '1692888796',
-                                          'recovery' => '0'
-                                        },
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767578',
-                       'resource_id' => 'c220g1-031122',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'modified' => '2023-08-24 08:53:30',
-                       'client_id' => 'node4',
-                       'timestamp' => 1692888796,
-                       'frisbee_data' => undef
-                     },
-          'link-1' => {
-                        'client_id' => 'link-1',
-                        'timestamp' => 1692888810,
-                        'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                        'name' => 'cachelib-1',
-                        'modified' => '2023-08-24 08:53:30',
-                        'frisbee_data' => undef,
-                        'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767588',
-                        'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                        'sliver_data' => {
-                                           'error' => '',
-                                           'status' => 'ready',
-                                           'client_id' => 'link-1',
-                                           'component_urn' => 'link-1',
-                                           'utc' => '1692888810',
-                                           'shutdown' => '0',
-                                           'state' => 'started',
-                                           'paniced' => '0'
-                                         },
-                        'resource_id' => 'link-1'
-                      },
-          'node8' => {
-                       'name' => 'cachelib-1',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'modified' => '2023-08-24 08:53:30',
-                       'timestamp' => 1692888796,
-                       'client_id' => 'node8',
-                       'frisbee_data' => undef,
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_data' => {
-                                          'status' => 'ready',
-                                          'error' => '',
-                                          'client_id' => 'node8',
-                                          'component_urn' => 'c220g1-031127',
-                                          'rawstate' => 'ISUP',
-                                          'utc' => '1692888796',
-                                          'nodestatus' => 'up',
-                                          'state' => 'started',
-                                          'recovery' => '0'
-                                        },
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767580',
-                       'resource_id' => 'c220g1-031127'
-                     },
-          'node7' => {
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767577',
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_data' => {
-                                          'error' => '',
-                                          'status' => 'ready',
-                                          'client_id' => 'node7',
-                                          'rawstate' => 'ISUP',
-                                          'component_urn' => 'c220g1-031105',
-                                          'utc' => '1692888796',
-                                          'state' => 'started',
-                                          'nodestatus' => 'up',
-                                          'recovery' => '0'
-                                        },
-                       'resource_id' => 'c220g1-031105',
-                       'client_id' => 'node7',
-                       'timestamp' => 1692888796,
-                       'modified' => '2023-08-24 08:53:30',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'frisbee_data' => undef
-                     },
-          'node0' => {
-                       'frisbee_data' => undef,
-                       'modified' => '2023-08-24 08:53:30',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'timestamp' => 1692888796,
-                       'client_id' => 'node0',
-                       'resource_id' => 'c220g1-031123',
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_data' => {
-                                          'recovery' => '0',
-                                          'utc' => '1692888796',
-                                          'nodestatus' => 'up',
-                                          'state' => 'started',
-                                          'rawstate' => 'ISUP',
-                                          'component_urn' => 'c220g1-031123',
-                                          'status' => 'ready',
-                                          'error' => '',
-                                          'client_id' => 'node0'
-                                        },
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767583'
-                     },
-          'node9' => {
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767579',
-                       'sliver_data' => {
-                                          'component_urn' => 'c220g1-031128',
-                                          'rawstate' => 'ISUP',
-                                          'client_id' => 'node9',
-                                          'status' => 'ready',
-                                          'error' => '',
-                                          'recovery' => '0',
-                                          'nodestatus' => 'up',
-                                          'state' => 'started',
-                                          'utc' => '1692888796'
-                                        },
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'resource_id' => 'c220g1-031128',
-                       'timestamp' => 1692888796,
-                       'client_id' => 'node9',
-                       'modified' => '2023-08-24 08:53:30',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'frisbee_data' => undef
-                     },
-          'node5' => {
-                       'resource_id' => 'c220g1-031107',
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_data' => {
-                                          'nodestatus' => 'up',
-                                          'state' => 'started',
-                                          'utc' => '1692888796',
-                                          'recovery' => '0',
-                                          'client_id' => 'node5',
-                                          'error' => '',
-                                          'status' => 'ready',
-                                          'rawstate' => 'ISUP',
-                                          'component_urn' => 'c220g1-031107'
-                                        },
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767586',
-                       'frisbee_data' => undef,
-                       'modified' => '2023-08-24 08:53:30',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'timestamp' => 1692888796,
-                       'client_id' => 'node5'
-                     },
-          'node2' => {
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_data' => {
-                                          'utc' => '1692888796',
-                                          'state' => 'started',
-                                          'nodestatus' => 'up',
-                                          'recovery' => '0',
-                                          'error' => '',
-                                          'status' => 'ready',
-                                          'client_id' => 'node2',
-                                          'rawstate' => 'ISUP',
-                                          'component_urn' => 'c220g1-031115'
-                                        },
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767581',
-                       'resource_id' => 'c220g1-031115',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'modified' => '2023-08-24 08:53:30',
-                       'client_id' => 'node2',
-                       'timestamp' => 1692888796,
-                       'frisbee_data' => undef
-                     },
-          'node6' => {
-                       'modified' => '2023-08-24 08:53:30',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'name' => 'cachelib-1',
-                       'client_id' => 'node6',
-                       'timestamp' => 1692888796,
-                       'frisbee_data' => undef,
-                       'sliver_data' => {
-                                          'utc' => '1692888796',
-                                          'nodestatus' => 'up',
-                                          'state' => 'started',
-                                          'recovery' => '0',
-                                          'status' => 'ready',
-                                          'error' => '',
-                                          'client_id' => 'node6',
-                                          'rawstate' => 'ISUP',
-                                          'component_urn' => 'c220g1-031108'
-                                        },
-                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767585',
-                       'resource_id' => 'c220g1-031108'
-                     },
           'node1' => {
-                       'resource_id' => 'c220g1-031110',
-                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+767582',
+                       'frisbee_data' => undef,
                        'sliver_data' => {
                                           'client_id' => 'node1',
+                                          'component_urn' => 'c220g5-111207',
+                                          'nodestatus' => 'up',
+                                          'recovery' => '0',
+                                          'rawstate' => 'ISUP',
+                                          'utc' => '1695838139',
                                           'error' => '',
                                           'status' => 'ready',
-                                          'rawstate' => 'ISUP',
-                                          'component_urn' => 'c220g1-031110',
-                                          'state' => 'started',
-                                          'nodestatus' => 'up',
-                                          'utc' => '1692888796',
-                                          'recovery' => '0'
+                                          'state' => 'started'
                                         },
                        'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
-                       'frisbee_data' => undef,
+                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+781370',
+                       'name' => 'cachetrace',
                        'client_id' => 'node1',
-                       'timestamp' => 1692888796,
-                       'name' => 'cachelib-1',
-                       'uuid' => '0c1a2984-428d-11ee-9f39-e4434b2381fc',
-                       'modified' => '2023-08-24 08:53:30'
+                       'uuid' => '0c22284d-5d5f-11ee-9f39-e4434b2381fc',
+                       'timestamp' => 1695838139,
+                       'resource_id' => 'c220g5-111207',
+                       'modified' => '2023-09-27 12:09:13'
+                     },
+          'link-1' => {
+                        'sliver_data' => {
+                                           'error' => '',
+                                           'paniced' => '0',
+                                           'state' => 'started',
+                                           'status' => 'ready',
+                                           'utc' => '1695838153',
+                                           'shutdown' => '0',
+                                           'client_id' => 'link-1',
+                                           'component_urn' => 'link-1'
+                                         },
+                        'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
+                        'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+781372',
+                        'frisbee_data' => undef,
+                        'uuid' => '0c22284d-5d5f-11ee-9f39-e4434b2381fc',
+                        'client_id' => 'link-1',
+                        'name' => 'cachetrace',
+                        'timestamp' => 1695838153,
+                        'modified' => '2023-09-27 12:09:13',
+                        'resource_id' => 'link-1'
+                      },
+          'node2' => {
+                       'uuid' => '0c22284d-5d5f-11ee-9f39-e4434b2381fc',
+                       'client_id' => 'node2',
+                       'name' => 'cachetrace',
+                       'sliver_data' => {
+                                          'client_id' => 'node2',
+                                          'component_urn' => 'c220g5-111205',
+                                          'nodestatus' => 'up',
+                                          'recovery' => '0',
+                                          'rawstate' => 'ISUP',
+                                          'utc' => '1695838139',
+                                          'error' => '',
+                                          'status' => 'ready',
+                                          'state' => 'started'
+                                        },
+                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
+                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+781368',
+                       'frisbee_data' => undef,
+                       'modified' => '2023-09-27 12:09:13',
+                       'resource_id' => 'c220g5-111205',
+                       'timestamp' => 1695838139
+                     },
+          'node0' => {
+                       'client_id' => 'node0',
+                       'uuid' => '0c22284d-5d5f-11ee-9f39-e4434b2381fc',
+                       'name' => 'cachetrace',
+                       'sliver_data' => {
+                                          'client_id' => 'node0',
+                                          'component_urn' => 'c220g5-111227',
+                                          'nodestatus' => 'up',
+                                          'recovery' => '0',
+                                          'rawstate' => 'ISUP',
+                                          'utc' => '1695838139',
+                                          'error' => '',
+                                          'status' => 'ready',
+                                          'state' => 'started'
+                                        },
+                       'aggregate_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+authority+cm',
+                       'sliver_urn' => 'urn:publicid:IDN+wisc.cloudlab.us+sliver+781369',
+                       'frisbee_data' => undef,
+                       'modified' => '2023-09-27 12:09:13',
+                       'resource_id' => 'c220g5-111227',
+                       'timestamp' => 1695838139
                      }
         };
-https://www.wisc.cloudlab.us/showslicepub.php?publicid=c07cfb916f2f5e642a082f62f42c1be483e6ad55
+https://www.wisc.cloudlab.us/showslicepub.php?publicid=b9e86146dbf47d9cc4432e2bdb64668dae6638b2
 
-<rspec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jacks="http://www.protogeni.net/resources/rspec/ext/jacks/1" xmlns:client="http://www.protogeni.net/resources/rspec/ext/client/1" xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" xmlns="http://www.geni.net/resources/rspec/3" xsi:schemaLocation="http://www.geni.net/resources/rspec/3 http://www.geni.net/resources/rspec/3/manifest.xsd" type="manifest" expires="2023-08-25T06:46:48Z">
+<rspec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jacks="http://www.protogeni.net/resources/rspec/ext/jacks/1" xmlns:client="http://www.protogeni.net/resources/rspec/ext/client/1" xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" xmlns="http://www.geni.net/resources/rspec/3" xsi:schemaLocation="http://www.geni.net/resources/rspec/3 http://www.geni.net/resources/rspec/3/manifest.xsd" type="manifest" expires="2023-09-28T10:00:00Z">
   <rspec_tour xmlns="http://www.protogeni.net/resources/rspec/ext/apt-tour/1">
     <description type="markdown">Variable number of nodes in a lan. You have the option of picking from one
 of several standard images we provide, or just use the default (typically a recent
@@ -453,89 +139,33 @@ by clicking on them in the toplogy, and choosing the `shell` menu option.
 Use `sudo` to run root commands. 
 </instructions>
   </rspec_tour>
-  <link client_id="link-1" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767588" vlantag="1110">
-    <interface_ref client_id="node0:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031123:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767589"/>
-    <interface_ref client_id="node1:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031110:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767590"/>
-    <interface_ref client_id="node2:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031115:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767591"/>
-    <interface_ref client_id="node3:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031124:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767592"/>
-    <interface_ref client_id="node4:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031122:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767593"/>
-    <interface_ref client_id="node5:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031107:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767594"/>
-    <interface_ref client_id="node6:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031108:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767595"/>
-    <interface_ref client_id="node7:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031105:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767596"/>
-    <interface_ref client_id="node8:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031127:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767597"/>
-    <interface_ref client_id="node9:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031128:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767598"/>
+  <link client_id="link-1" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781372" vlantag="1142">
+    <interface_ref client_id="node0:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g5-111227:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781373"/>
+    <interface_ref client_id="node1:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g5-111207:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781374"/>
+    <interface_ref client_id="node2:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g5-111205:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781375"/>
     <link_type name="lan"/>
   <component_manager name="urn:publicid:IDN+wisc.cloudlab.us+authority+cm"/></link>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node0" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031123" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767583">
+  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node0" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g5-111227" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781369">
     <sliver_type name="raw-pc">
       <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
     </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node0:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031123:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767589" mac_address="90e2ba83c964"><ip address="10.10.1.1" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031123" hardware_type="c220g1"/><host name="node0.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.146.0"/><services><login authentication="ssh-keys" hostname="c220g1-031123.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031123.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031123.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031123.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031123.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031123.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031123.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node1" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031110" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767582">
+    <hardware_type name="c220g5"/>
+    <interface client_id="node0:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g5-111227:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781373" mac_address="3cfdfea90eec"><ip address="10.10.1.1" type="ipv4" netmask="255.255.255.0"/></interface>
+  <emulab:vnode name="c220g5-111227" hardware_type="c220g5"/><host name="node0.cachetrace.multitier-cache-PG0.wisc.cloudlab.us" ipv4="128.105.144.229"/><services><login authentication="ssh-keys" hostname="c220g5-111227.wisc.cloudlab.us" port="22" username="pbhandar"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
+  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node1" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g5-111207" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781370">
     <sliver_type name="raw-pc">
       <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
     </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node1:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031110:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767590" mac_address="90e2ba84dc54"><ip address="10.10.1.2" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031110" hardware_type="c220g1"/><host name="node1.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.145.243"/><services><login authentication="ssh-keys" hostname="c220g1-031110.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031110.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031110.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031110.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031110.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031110.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031110.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node2" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031115" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767581">
+    <hardware_type name="c220g5"/>
+    <interface client_id="node1:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g5-111207:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781374" mac_address="3cfdfeb5001c"><ip address="10.10.1.2" type="ipv4" netmask="255.255.255.0"/></interface>
+  <emulab:vnode name="c220g5-111207" hardware_type="c220g5"/><host name="node1.cachetrace.multitier-cache-PG0.wisc.cloudlab.us" ipv4="128.105.144.209"/><services><login authentication="ssh-keys" hostname="c220g5-111207.wisc.cloudlab.us" port="22" username="pbhandar"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
+  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node2" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g5-111205" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781368">
     <sliver_type name="raw-pc">
       <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
     </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node2:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031115:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767591" mac_address="90e2ba73fe48"><ip address="10.10.1.3" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031115" hardware_type="c220g1"/><host name="node2.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.145.248"/><services><login authentication="ssh-keys" hostname="c220g1-031115.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031115.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031115.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031115.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031115.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031115.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031115.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node3" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031124" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767584">
-    <sliver_type name="raw-pc">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node3:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031124:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767592" mac_address="90e2ba38386c"><ip address="10.10.1.4" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031124" hardware_type="c220g1"/><host name="node3.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.146.1"/><services><login authentication="ssh-keys" hostname="c220g1-031124.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031124.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031124.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031124.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031124.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031124.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031124.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node4" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031122" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767578">
-    <sliver_type name="raw-pc">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node4:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031122:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767593" mac_address="90e2ba38381c"><ip address="10.10.1.5" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031122" hardware_type="c220g1"/><host name="node4.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.145.255"/><services><login authentication="ssh-keys" hostname="c220g1-031122.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031122.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031122.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031122.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031122.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031122.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031122.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node5" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031107" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767586">
-    <sliver_type name="raw-pc">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node5:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031107:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767594" mac_address="90e2ba84d8bc"><ip address="10.10.1.6" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031107" hardware_type="c220g1"/><host name="node5.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.145.240"/><services><login authentication="ssh-keys" hostname="c220g1-031107.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031107.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031107.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031107.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031107.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031107.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031107.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node6" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031108" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767585">
-    <sliver_type name="raw-pc">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node6:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031108:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767595" mac_address="90e2ba84d670"><ip address="10.10.1.7" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031108" hardware_type="c220g1"/><host name="node6.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.145.241"/><services><login authentication="ssh-keys" hostname="c220g1-031108.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031108.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031108.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031108.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031108.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031108.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031108.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node7" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031105" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767577">
-    <sliver_type name="raw-pc">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node7:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031105:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767596" mac_address="90e2ba84d648"><ip address="10.10.1.8" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031105" hardware_type="c220g1"/><host name="node7.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.145.238"/><services><login authentication="ssh-keys" hostname="c220g1-031105.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031105.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031105.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031105.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031105.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031105.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031105.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node8" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031127" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767580">
-    <sliver_type name="raw-pc">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node8:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031127:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767597" mac_address="90e2ba3837e0"><ip address="10.10.1.9" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031127" hardware_type="c220g1"/><host name="node8.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.146.4"/><services><login authentication="ssh-keys" hostname="c220g1-031127.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031127.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031127.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031127.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031127.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031127.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031127.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
-  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node9" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+c220g1-031128" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767579">
-    <sliver_type name="raw-pc">
-      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"/>
-    </sliver_type>
-    <hardware_type name="c220g1"/>
-    <interface client_id="node9:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g1-031128:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+767598" mac_address="90e2ba3837c8"><ip address="10.10.1.10" type="ipv4" netmask="255.255.255.0"/></interface>
-  <emulab:vnode name="c220g1-031128" hardware_type="c220g1"/><host name="node9.cachelib-1.microthreads-PG0.wisc.cloudlab.us" ipv4="128.105.146.5"/><services><login authentication="ssh-keys" hostname="c220g1-031128.wisc.cloudlab.us" port="22" username="vishwa"/><login authentication="ssh-keys" hostname="c220g1-031128.wisc.cloudlab.us" port="22" username="yazhuoz"/><login authentication="ssh-keys" hostname="c220g1-031128.wisc.cloudlab.us" port="22" username="nikbapat"/><login authentication="ssh-keys" hostname="c220g1-031128.wisc.cloudlab.us" port="22" username="ymir"/><login authentication="ssh-keys" hostname="c220g1-031128.wisc.cloudlab.us" port="22" username="mohsal"/><login authentication="ssh-keys" hostname="c220g1-031128.wisc.cloudlab.us" port="22" username="jackzzzy"/><login authentication="ssh-keys" hostname="c220g1-031128.wisc.cloudlab.us" port="22" username="geleta"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
+    <hardware_type name="c220g5"/>
+    <interface client_id="node2:eth1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+c220g5-111205:eth2" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+781375" mac_address="3cfdfeb0f2d0"><ip address="10.10.1.3" type="ipv4" netmask="255.255.255.0"/></interface>
+  <emulab:vnode name="c220g5-111205" hardware_type="c220g5"/><host name="node2.cachetrace.multitier-cache-PG0.wisc.cloudlab.us" ipv4="128.105.144.207"/><services><login authentication="ssh-keys" hostname="c220g5-111205.wisc.cloudlab.us" port="22" username="pbhandar"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services></node>
   <data_set xmlns="http://www.protogeni.net/resources/rspec/ext/profile-parameters/1">
     <data_item name="emulab.net.parameter.linkSpeed">0</data_item>
     <data_item name="emulab.net.parameter.tempFileSystemSize">0</data_item>
@@ -543,12 +173,12 @@ Use `sudo` to run root commands.
     <data_item name="emulab.net.parameter.tempFileSystemMax">False</data_item>
     <data_item name="emulab.net.parameter.tempFileSystemMount">/mydata</data_item>
     <data_item name="emulab.net.parameter.bestEffort">False</data_item>
-    <data_item name="emulab.net.parameter.phystype">c220g1</data_item>
+    <data_item name="emulab.net.parameter.phystype">c220g5</data_item>
     <data_item name="emulab.net.parameter.sameSwitch">False</data_item>
     <data_item name="emulab.net.parameter.osImage">urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD</data_item>
-    <data_item name="emulab.net.parameter.nodeCount">10</data_item>
+    <data_item name="emulab.net.parameter.nodeCount">3</data_item>
     <data_item name="emulab.net.parameter.startVNC">False</data_item>
   </data_set>
-<emulab:portal name="cloudlab" url="https://www.cloudlab.us/status.php?uuid=0c1a2984-428d-11ee-9f39-e4434b2381fc" project="MicroThreads" experiment="cachelib-1" sequence="1692888410"/><rs:site_info xmlns:rs="http://www.protogeni.net/resources/rspec/ext/site-info/1"><rs:location country="US" latitude="43.0667" longitude="89.4000"/></rs:site_info></rspec>
+<emulab:portal name="cloudlab" url="https://www.cloudlab.us/status.php?uuid=0c22284d-5d5f-11ee-9f39-e4434b2381fc" project="multitier-cache" experiment="cachetrace" sequence="1695837335"/><rs:site_info xmlns:rs="http://www.protogeni.net/resources/rspec/ext/site-info/1"><rs:location country="US" latitude="43.0667" longitude="89.4000"/></rs:site_info></rspec>
 
 -----------------------------------------------------------
