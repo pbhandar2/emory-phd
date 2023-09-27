@@ -51,7 +51,7 @@ def main():
     print(exit_code)
 
     if exit_code == 0:
-        args.cache_trace_path.mkdir(exists_ok=True, parents=True)
+        args.cache_trace_path.mkdir(exist_ok=True, parents=True)
         cur_node.download(remote_cache_trace_path, str(args.cache_trace_path.absolute()))
 
         print("Downloaded {} to {}".format(remote_cache_trace_path, args.cache_trace_path))
