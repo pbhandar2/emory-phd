@@ -18,7 +18,7 @@ from cydonia.profiler.CacheTraceProfiler import CacheTraceProfiler
 from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
-class ProfileCacheTraces:
+class MultiProfileCacheTraces:
     def __init__(
             self,
             global_config: GlobalConfig = GlobalConfig(),

@@ -48,11 +48,50 @@ def scatter_plot(
     plt.close(fig)
 
 
+def scatter_plot_hrc_error(config: GlobalConfig):
+    metadata_dir = config.postprocess_hrc_err_dir_path
+
+    label_arr = []
+    sample_overall_hrc_err_arr, postprocess_overall_hrc_err_arr = [], []
+    sample_read_hrc_err_arr, postprocess_read_hrc_err_arr = [], []
+    sample_read_only_hrc_err_arr, postprocess_read_only_hrc_err_arr = [], []
+
+    for file_path in metadata_dir.glob("*/*/*/*/*"):
+        with file_path.open("r") as file_handle:
+            metadata_dict = load(file_handle)
+
+        file_name_split = file_path.stem.split("_")
+        rate, bits, seed = int(file_name_split[0]), int(file_name_split[1]), int(file_name_split[2])
+        
+        sample_overall_hrc_err_arr.append(metadata_dict["samp_2"]["mean"])
+        postprocess_overall_hrc_err_arr.append(metadata_dict["post_2"]["mean"])
+
+        sample_read_hrc_err_arr.append(metadata_dict["samp_1"]["mean"])
+        postprocess_read_hrc_err_arr.append(metadata_dict["post_1"]["mean"])
+
+        sample_read_only_hrc_err_arr.append(metadata_dict["samp_3"]["mean"])
+        postprocess_read_only_hrc_err_arr.append(metadata_dict["post_3"]["mean"])
+        label_arr.append(rate)
+
+    scatter_plot(sample_overall_hrc_err_arr, postprocess_overall_hrc_err_arr, label_arr, 
+                    "Sample Only Mean Hit Rate Error (%)", 
+                    "Sample + BlkSample Only Mean Hit Rate Error (%)", "./files/post_process_scatter/scatter_overall_hr.pdf")
+
+    scatter_plot(sample_read_hrc_err_arr, postprocess_read_hrc_err_arr, label_arr, 
+                    "Sample Only Mean Hit Rate Error (%)", 
+                    "Sample + BlkSample Only Mean Hit Rate Error (%)", "./files/post_process_scatter/scatter_read_hr.pdf")
+
+    scatter_plot(sample_read_only_hrc_err_arr, postprocess_read_only_hrc_err_arr, label_arr, 
+                    "Sample Only Mean Hit Rate Error (%)", 
+                    "Sample + BlkSample Only Mean Hit Rate Error (%)", "./files/post_process_scatter/scatter_read_only_hr.pdf")
+
+
 def scatter_plot_post_processing_error(config: GlobalConfig):
     metadata_dir = config.postprocess_stat_dir_path
 
     post_processing_err_arr = []
     sample_err_arr, label_arr = [], []
+    sampling_std_arr, postprocess_std_arr = [], [] 
     postprocess_size_arr, postprocess_sampling_rate = [], []
     
     for file_path in metadata_dir.glob("*/*/*/*/*"):
@@ -87,6 +126,7 @@ def main():
     parser = ArgumentParser(description="Create a scatter plot of mean error vs effective sampling rate with and without postprocessing.")
     args = parser.parse_args()
     scatter_plot_post_processing_error(global_config)
+    scatter_plot_hrc_error(global_config)
 
 
 if __name__ == "__main__":

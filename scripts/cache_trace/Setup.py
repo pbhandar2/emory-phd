@@ -10,16 +10,10 @@ from expK8.remoteFS.NodeFactory import NodeFactory
 class Setup:
     def __init__(
             self, 
-            node: Node, 
-            block_trace_path: Path,
-            cache_trace_path: Path 
+            node: Node
     ) -> None:
         self._node = node 
-        self._block_trace_path = block_trace_path
-        self._cache_trace_path = cache_trace_path 
         self._remote_source_dir_str = self._node.format_path("~/nvm")
-        self._remote_block_trace_path = Path("{}/{}".format(self._remote_source_dir_str, block_trace_path.absolute()))
-        self._remote_cache_trace_path = Path("{}/{}".format(self._remote_source_dir_str, cache_trace_path.absolute()))
         self._remote_repo_dir_str = "~/disk/emory-phd"
     
 
@@ -73,43 +67,3 @@ class Setup:
 
         status_arr = [cmake_install_exit_code, clone_repo_exit_code, update_repo_exit_code, setup_stack_exit_code]
         return all([status == 0 for status in status_arr])
-
-
-def main():
-    blk_trace_path = Path("/")
-    with Path("config.json").open("r") as config_handle:
-        config_dict = load(config_handle)
-    
-    node_factory = NodeFactory("config.json")
-    cur_node = node_factory.nodes[0]
-
-    setup = Setup(cur_node, Path("/"), Path("/"))
-    setup_ready = setup.setup()
-    print(setup_ready)
-
-    # transfer the block trace 
-    remote_blk_trace_dir = "{}/{}".format(setup._remote_source_dir_str, str(blk_trace_path.parent.expanduser()))
-    cur_node.mkdir(remote_blk_trace_dir)
-    remote_blk_trace_path = "{}/{}".format(remote_blk_trace_dir, blk_trace_path.name)
-    cur_node.scp(blk_trace_path, remote_blk_trace_path)
-
-    assert cur_node.file_exists(remote_blk_trace_path), \
-        "Block trace was not transfered to remote node."
-
-    # run command to create a cache trace 
-
-
-    # run the command to process the block trace 
-
-
-
-if __name__ == "__main__":
-    main()
-
-
-
-    
-
-
-
-    

@@ -1,7 +1,7 @@
 from pathlib import Path 
 from argparse import ArgumentParser
 
-from keyuri.experiments.ProfileCacheTraces import ProfileCacheTraces 
+from keyuri.experiments.MultiProfileCacheTraces import ProfileCacheTraces 
 from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
