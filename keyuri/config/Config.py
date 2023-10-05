@@ -18,14 +18,17 @@ class GlobalConfig:
         self.block_trace_dir_path = self.source_dir_path.joinpath("block_traces")
         self.block_cache_trace_dir_path = self.source_dir_path.joinpath("block_cache_trace")
         self.block_access_trace_dir_path = self.source_dir_path.joinpath("block_access_trace")
+        self.block_access_cache_trace_dir_path = self.source_dir_path.joinpath("block_access_cache_traces")
         
         self.sample_block_trace_dir_path = self.source_dir_path.joinpath("sample_block_traces")
         self.sample_cache_trace_dir_path = self.source_dir_path.joinpath("sample_block_cache_traces")
         self.sample_block_access_trace_dir_path = self.source_dir_path.joinpath("sample_block_access_traces")
+        self.sample_block_access_cache_trace_dir_path = self.source_dir_path.joinpath("sample_block_access_cache_traces")
 
         self.postprocess_sample_block_trace_dir_path = self.source_dir_path.joinpath("postprocess_sample_block_traces")
         self.postprocess_sample_cache_trace_dir_path = self.source_dir_path.joinpath("postprocess_sample_block_cache_traces")
         self.postprocess_sample_block_access_trace_dir_path = self.source_dir_path.joinpath("postprocess_block_access_traces")
+        self.postprocess_sample_block_access_cache_trace_dir_path = self.source_dir_path.joinpath("postprocess_block_access_cache_traces")
 
         # directory for each type of metadata 
         # block_features: Fetures generated from the block trace. 
@@ -47,6 +50,8 @@ class GlobalConfig:
         self.sample_cumulative_features_dir_path = self.metadata_dir_path.joinpath("sample", "cumulative_features")
         self.sample_rd_hist_dir_path = self.metadata_dir_path.joinpath("sample", "rd_hist")
         self.sample_access_rd_hist_dir_path = self.metadata_dir_path.joinpath("sample", "access_rd_hist")
+        self.sample_hit_rate_err_dir_path = self.metadata_dir_path.joinpath("sample", "hit_rate_err")
+        self.sample_access_hit_rate_err_dir_path = self.metadata_dir_path.joinpath("sample", "access_hit_rate_err")
 
         # split_features: metadata about the number of splits during sampling. 
         # percent_diff_fetures: percentage difference across all features in the sample and full trace 
@@ -61,6 +66,7 @@ class GlobalConfig:
         self.postprocess_access_rd_hist_dir_path = self.metadata_dir_path.joinpath("postprocess", "access_rd_hist")
         # hrc_error: Difference in HRC between postprocessed, sampled and full trace. 
         self.postprocess_hrc_err_dir_path = self.metadata_dir_path.joinpath("postprocess", "hrc_err")
+        self.postprocess_access_hrc_err_dir_path = self.metadata_dir_path.joinpath("postprocess", "access_hrc_err")
         # replay: Output of block trace replay. 
         self.replay_dir_path = self.source_dir_path.joinpath("replay")
         # replay_backup: Stores backups of the replay directory. 
@@ -102,6 +108,14 @@ class GlobalConfig:
             workload_name: str
     ) -> Path:
         return self.block_access_trace_dir_path.joinpath(workload_type, "{}.csv".format(workload_name))
+    
+
+    def get_access_cache_trace_path(
+            self,
+            workload_type: str,
+            workload_name: str
+    ) -> Path:
+        return self.block_access_cache_trace_dir_path.joinpath(workload_type, "{}.csv".format(workload_name))
     
 
     def get_replay_output_dir_path(
