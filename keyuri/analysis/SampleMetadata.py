@@ -5,6 +5,7 @@ Usage:
     sample_metadata.print_best_samples()
 """
 
+
 from numpy import array, arange 
 from pathlib import Path 
 from json import load as json_load 
@@ -13,7 +14,7 @@ from numpy import mean
 from pandas import DataFrame
 
 from cydonia.profiler.RDHistogram import RDHistogram
-from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
+from keyuri.config.BaseConfig import BaseConfig
 
 
 class SampleMetadata:
@@ -22,8 +23,7 @@ class SampleMetadata:
             workload_name: str, 
             workload_type: str = "cp",
             sample_type: str = "iat",
-            global_config: GlobalConfig = GlobalConfig(),
-            sample_config: SampleExperimentConfig = SampleExperimentConfig()
+            config: BaseConfig = BaseConfig()
     ) -> None:
         """This class manages metadata generated during creation and profiling of samples and full block traces. 
 
@@ -31,21 +31,18 @@ class SampleMetadata:
             workload_name: Name of the workload.
             workload_type: Type of workload.
             sample_type: Type of sample. 
-            global_config: Global configuration object. 
-            sample_config: Sampling configuration object. 
+            config: Experiment configuration object.
         
         Attributes:
             _workload_name: Name of the workload.
             _workload_type: Type of workload.
             _sample_type: Type of sample. 
-            _global_config: Global configuration object. 
-            _sample_config: Sampling configuration object. 
+            _config: The configuration object. 
         """
         self._workload_name = workload_name 
         self._workload_type = workload_type 
         self._sample_type = sample_type
-        self._global_config = global_config
-        self._sample_config = sample_config
+        self._config = config
     
 
     def get_cache_feature_dict(

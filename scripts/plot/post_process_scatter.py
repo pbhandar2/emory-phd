@@ -5,8 +5,70 @@ from argparse import ArgumentParser
 from matplotlib.markers import MarkerStyle 
 import matplotlib.pyplot as plt
 from collections import OrderedDict
+from pandas import DataFrame
 
 from keyuri.config.Config import GlobalConfig
+
+
+def get_info_from_metadata_file_path(metadata_file_path: Path) -> dict:
+    info_dict = {}
+    file_name = metadata_file_path.stem.split("_")
+    info_dict["rate"], info_dict["bits"], info_dict["seed"] = int(file_name[0]), int(file_name[1]), int(file_name[2])
+    info_dict["workload"] = metadata_file_path.parent.name 
+    algo_name = metadata_file_path.parent.parent.parent.parent.name
+    info_dict["algo_type"], info_dict["algo_param"] = algo_name.split("-")[0], algo_name.split("-")[1]
+    return info_dict 
+
+
+def load_data(
+        config: GlobalConfig = GlobalConfig(),
+        trace_type: str = "access"
+) -> tuple:
+    hrc_err_dir = config.postprocess_hrc_err_dir_path if trace_type == "cache" else config.postprocess_access_hrc_err_dir_path
+    hrc_row_list = []
+    for file_path in hrc_err_dir.glob("*/*/*/*/*"):
+        with file_path.open("r") as file_handle:
+            metadata_dict = load(file_handle)
+        
+        info_dict = get_info_from_metadata_file_path(file_path)
+        info_dict["sample_mean_read_hr_err"] = metadata_dict["samp_1"]["mean"]
+        info_dict["post_mean_read_hr_err"] = metadata_dict["post_1"]["mean"]
+        info_dict["sample_mean_overall_hr_err"] = metadata_dict["samp_2"]["mean"]
+        info_dict["post_mean_overall_hr_err"] = metadata_dict["post_2"]["mean"]
+        info_dict["sample_mean_read_only_hr_err"] = metadata_dict["samp_3"]["mean"]
+        info_dict["post_mean_read_only_hr_err"] = metadata_dict["post_3"]["mean"]
+        info_dict["mean_read_hr_err"] = 100*(metadata_dict["samp_1"]["mean"] - metadata_dict["post_1"]["mean"])/metadata_dict["samp_1"]["mean"]
+        info_dict["mean_overall_hr_err"] = 100*(metadata_dict["samp_2"]["mean"] - metadata_dict["post_2"]["mean"])/metadata_dict["samp_2"]["mean"]
+        info_dict["mean_read_only_hr_err"] = 100*(metadata_dict["samp_3"]["mean"] - metadata_dict["post_3"]["mean"])/metadata_dict["samp_3"]["mean"]
+        hrc_row_list.append(info_dict)
+
+    overall_row_list = []
+    overall_stat_dir = config.postprocess_stat_dir_path 
+    for file_path in overall_stat_dir.glob("*/*/*/*/*"):
+        with file_path.open("r") as file_handle:
+            metadata_dict = load(file_handle)
+
+        info_dict = get_info_from_metadata_file_path(file_path)
+        info_dict["sample_blk_err"]= metadata_dict["sample_percent_err"]["mean"]
+        info_dict["post_blk_err"]= metadata_dict["postprocess_percent_err"]["mean"]
+        overall_row_list.append(info_dict)
+    
+    return DataFrame(hrc_row_list), DataFrame(overall_row_list)
+
+
+def plot_all():
+    hrc_df, overall_df = load_data()
+
+    for group_index, group_df in hrc_df.groupby(["rate"]):
+        print(group_index)
+        print(group_df)
+
+    print(hrc_df)
+    print(overall_df)
+    
+
+
+
 
 
 def scatter_plot(
@@ -123,10 +185,13 @@ def scatter_plot_post_processing_error(config: GlobalConfig):
 
 def main():
     global_config = GlobalConfig()
-    parser = ArgumentParser(description="Create a scatter plot of mean error vs effective sampling rate with and without postprocessing.")
+
+    parser = ArgumentParser(description="Create scatter plots from the output of sampling and post-processing.") 
     args = parser.parse_args()
-    scatter_plot_post_processing_error(global_config)
-    scatter_plot_hrc_error(global_config)
+
+    # scatter_plot_post_processing_error(global_config)
+    # scatter_plot_hrc_error(global_config)
+    plot_all()
 
 
 if __name__ == "__main__":

@@ -12,10 +12,16 @@ def main():
     parser.add_argument("--workload_type", type=str, default="cp", help="Type of workload.")
     parser.add_argument("--sample_type", type=str, default="iat", help="Type of sample.")
     parser.add_argument("--algo_type", type=str, default="reduce-12", help="Type of algorithm used for post-processing.")
+    parser.add_argument("--trace_type", 
+                            type=str, 
+                            default="cache", 
+                            help="Type of trace to generate cache or access.")
     args = parser.parse_args()
 
     type_arr = [HRCType.OVERALL, HRCType.READ, HRCType.READ_ONLY]
+
     global_config = GlobalConfig()
+
     sample_rd_hist_dir_path = global_config.sample_rd_hist_dir_path.joinpath(args.algo_type,
                                                                                 args.sample_type,
                                                                                 args.workload_type,
@@ -25,15 +31,37 @@ def main():
                                                                                         args.workload_type,
                                                                                         args.workload_name)
     
-    rd_hist_dir_path = global_config.postprocess_rd_hist_dir_path.joinpath(args.algo_type,
-                                                                                args.sample_type,
-                                                                                args.workload_type,
-                                                                                args.workload_name)
-    
-    hrc_err_dir_path = global_config.postprocess_hrc_err_dir_path.joinpath(args.algo_type,
-                                                                                args.sample_type,
-                                                                                args.workload_type,
-                                                                                args.workload_name)
+    if args.trace_type == "cache":
+
+        
+        rd_hist_dir_path = global_config.postprocess_rd_hist_dir_path.joinpath(args.algo_type,
+                                                                                    args.sample_type,
+                                                                                    args.workload_type,
+                                                                                    args.workload_name)
+        
+        hrc_err_dir_path = global_config.postprocess_hrc_err_dir_path.joinpath(args.algo_type,
+                                                                                    args.sample_type,
+                                                                                    args.workload_type,
+                                                                                    args.workload_name)
+    else:
+        # sample_rd_hist_dir_path = global_config.sample_access_rd_hist_dir_path.joinpath(args.algo_type,
+        #                                                                                     args.sample_type,
+        #                                                                                     args.workload_type,
+        #                                                                                     args.workload_name)
+
+        # sample_cache_trace_dir_path = global_config.sample_block_access_trace_dir_path.joinpath(args.sample_type,
+        #                                                                                             args.workload_type,
+        #                                                                                             args.workload_name)
+        
+        rd_hist_dir_path = global_config.postprocess_access_rd_hist_dir_path.joinpath(args.algo_type,
+                                                                                        args.sample_type,
+                                                                                        args.workload_type,
+                                                                                        args.workload_name)
+        
+        hrc_err_dir_path = global_config.postprocess_access_hrc_err_dir_path.joinpath(args.algo_type,
+                                                                                        args.sample_type,
+                                                                                        args.workload_type,
+                                                                                        args.workload_name)
 
     full_trace_rd_hist_path = global_config.get_rd_hist_file_path(args.workload_type, args.workload_name)
     if not full_trace_rd_hist_path.exists():

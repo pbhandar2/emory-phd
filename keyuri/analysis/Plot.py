@@ -107,16 +107,6 @@ class Plot:
             self.line_plot(x, y, self.line_style_arr[line_index], label_arr[line_index], plot_index=plot_index)
             line_index += 1 
 
-        # try:
-        #     ax = self.ax[plot_index]
-        # except Exception:
-        #     ax = self.ax 
-
-        # ax.set_xlabel(x_label, fontsize=self.x_label_font_size)
-        # ax.set_ylabel(y_label, fontsize=self.y_label_font_size)
-
-        # We change the fontsize of minor ticks label 
-
 
     def set_legend(self, loc: str = "upper center", plot_index: int = 0):
         try:

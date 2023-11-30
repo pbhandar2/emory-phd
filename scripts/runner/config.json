@@ -39,17 +39,7 @@
   },
   "nodes": {
     "vish-c220g1_node0": {
-      "host": "c220g5-111227.wisc.cloudlab.us",
-      "cred": "cloudlab",
-      "mount": "c220g5"
-    },
-    "vish-c220g1_node1": {
-      "host": "c220g5-111207.wisc.cloudlab.us",
-      "cred": "cloudlab",
-      "mount": "c220g5"
-    },
-    "vish-c220g1_node2": {
-      "host": "c220g5-111205.wisc.cloudlab.us",
+      "host": "c220g5-110515.wisc.cloudlab.us",
       "cred": "cloudlab",
       "mount": "c220g5"
     }

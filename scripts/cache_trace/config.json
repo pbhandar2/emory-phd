@@ -1,57 +1,47 @@
 {
-    "creds": {
-      "cloudlab": {
-        "user": "pbhandar",
-        "type": "file",
-        "val": "~/.ssh/id_ed25519"
-      },
-      "cloudlab_vishwa": {
-        "user": "vishwa",
-        "type": "file",
-        "val": "~/.ssh/id_ed25519"
-      }
+  "creds": {
+    "cloudlab": {
+      "user": "pbhandar",
+      "type": "file",
+      "val": "~/.ssh/id_ed25519"
     },
-    "mounts": {
-      "c220g1": [
-        {
-          "mountpoint": "~/disk",
-          "device": "sdb",
-          "size_gb": 950
-        },
-        {
-          "mountpoint": "~/nvm",
-          "device": "sdc",
-          "size_gb": 420
-        }
-      ],
-      "c220g5": [
-        {
-          "mountpoint": "~/disk",
-          "device": "sdb",
-          "size_gb": 900
-        },
-        {
-          "mountpoint": "~/nvm",
-          "device": "sda",
-          "size_gb": 420
-        }
-      ]
-    },
-    "nodes": {
-      "vish-c220g1_node0": {
-        "host": "c220g5-111227.wisc.cloudlab.us",
-        "cred": "cloudlab",
-        "mount": "c220g5"
+    "cloudlab_vishwa": {
+      "user": "vishwa",
+      "type": "file",
+      "val": "~/.ssh/id_ed25519"
+    }
+  },
+  "mounts": {
+    "c220g1": [
+      {
+        "mountpoint": "~/disk",
+        "device": "sdb",
+        "size_gb": 950
       },
-      "vish-c220g1_node1": {
-        "host": "c220g5-111207.wisc.cloudlab.us",
-        "cred": "cloudlab",
-        "mount": "c220g5"
-      },
-      "vish-c220g1_node2": {
-        "host": "c220g5-111205.wisc.cloudlab.us",
-        "cred": "cloudlab",
-        "mount": "c220g5"
+      {
+        "mountpoint": "~/nvm",
+        "device": "sdc",
+        "size_gb": 420
       }
+    ],
+    "c220g5": [
+      {
+        "mountpoint": "~/disk",
+        "device": "sdb",
+        "size_gb": 950
+      },
+      {
+        "mountpoint": "~/nvm",
+        "device": "sda",
+        "size_gb": 420
+      }
+    ]
+  },
+  "nodes": {
+    "vish-c220g1_node0": {
+      "host": "c220g5-110515.wisc.cloudlab.us",
+      "cred": "cloudlab",
+      "mount": "c220g5"
     }
   }
+}

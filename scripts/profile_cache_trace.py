@@ -1,7 +1,7 @@
 from pathlib import Path 
 from argparse import ArgumentParser
 
-from keyuri.experiments.MultiProfileCacheTraces import ProfileCacheTraces 
+from keyuri.experiments.MultiProfileCacheTraces import MultiProfileCacheTraces
 from keyuri.config.Config import GlobalConfig, SampleExperimentConfig
 
 
@@ -17,10 +17,10 @@ def main():
     args = parser.parse_args()
 
     if args.source_dir_path != global_config.source_dir_path:
-        global_config.update_source_dir(args.source_dir_path) 
+        global_config = GlobalConfig(args.source_dir_path)
     
     print("Profiling cache traces in source dir, {}.".format(global_config.source_dir_path))
-    profile_cache_traces = ProfileCacheTraces(global_config=global_config, sample_config=sample_config)
+    profile_cache_traces = MultiProfileCacheTraces(global_config=global_config, sample_config=sample_config)
     profile_cache_traces.profile(args.workload_name, workload_type=args.workload_type, batch_size=args.batch_size)
 
 
