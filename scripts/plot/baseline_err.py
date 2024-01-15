@@ -86,6 +86,11 @@ def main():
                             type=int, 
                             required=True,
                             help="Number of lower address bits ignored.")
+    
+    parser.add_argument("--rate",
+                            "-r",
+                            type=float, 
+                            help="Sampling rate between (0 and 1).")
 
     parser.add_argument("--type",
                             "-t", 
@@ -132,8 +137,8 @@ def main():
         data_df.to_csv(args.datafile, index=False)
     
     print(data_df)
-    plot_path = args.output_dir.joinpath("{}/{}_{}.pdf".format(args.type, args.bits, args.seed))
-    plot(data_df[data_df["bits"] == 0], plot_path)
+    plot_path = args.output_dir.joinpath("{}/{}_{}_{}.pdf".format(args.type, args.bits, args.seed, int(100*args.rate)))
+    plot(data_df[(data_df["bits"] == 0) & (data_df["rate"] == int(100*args.rate))], plot_path)
     
 
 if __name__ == "__main__":
