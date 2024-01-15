@@ -10,7 +10,7 @@ from keyuri.config.BaseConfig import BaseConfig
 
 
 def plot(data_df: DataFrame, plot_path: Path) -> None:
-    plt.rcParams.update({'font.size': 30})
+    plt.rcParams.update({'font.size': 37})
     fig, ax = plt.subplots(figsize=[28,10])
 
     print(data_df.columns.values)
@@ -35,7 +35,7 @@ def plot(data_df: DataFrame, plot_path: Path) -> None:
                         "Write \nIAT",
                         "Read \nMisalign",
                         "Write \nMisalign",
-                        "Write Ratio",
+                        "Write \nRatio",
                         "Read \nHit Rate",
                         "Write \nHit Rate",
                         "Overall \nHit Rate"])
