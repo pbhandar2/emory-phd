@@ -6,4 +6,4 @@
 	url = https://github.com/pbhandar2/CacheLib
 [submodule "modules/Cydonia"]
 	path = modules/Cydonia
-	url = https://github.com/pbhandar2/phdthesis
+	url = https://github.com/pbhandar2/Cydonia

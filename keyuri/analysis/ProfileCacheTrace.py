@@ -8,7 +8,7 @@ from json import dump, JSONEncoder
 from numpy import ndarray, int64
 
 from keyuri.config.BaseConfig import BaseConfig
-from cydonia.profiler.CacheTraceProfiler import get_workload_features_from_cache_trace
+from cydonia.profiler.CacheTraceProfiler import get_workload_feature_dict_from_cache_trace
 
 
 class NumpyEncoder(JSONEncoder):
@@ -75,4 +75,4 @@ class ProfileCacheTrace:
     @staticmethod
     def compute_base_features(cache_trace_path: Path) -> dict:
         df = read_csv(cache_trace_path, names=["i", "iat", "key", "op", "front_misalign", "rear_misalign"])
-        return get_workload_features_from_cache_trace(df)
+        return get_workload_feature_dict_from_cache_trace(df)

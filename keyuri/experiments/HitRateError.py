@@ -19,7 +19,7 @@ class MultiHitRateError:
     
 
     def generate_hit_rate_err_files(self) -> None:
-        """Generate hit rate error files for all files pertaining to the workload."""
+        """ Generate hit rate error files for all files pertaining to the workload. """
         for sample_rd_hist_file_path in self._sample_rd_hist_dir_path.iterdir():
             hit_rate_err_file_path = self._hit_rate_err_dir_path.joinpath("{}.csv".format(sample_rd_hist_file_path.stem))
             if hit_rate_err_file_path.exists():
@@ -47,15 +47,15 @@ class HitRateError:
         self._sample_rd_hist_file_path = sample_rd_hist_file_path 
         self._sample_rate = sample_rate 
 
-        self._full_rd_hist = RDHistogram()
+        self._full_rd_hist = RDHistogram(-1)
         self._full_rd_hist.load_rd_hist_file(self._full_rd_hist_file_path)
 
-        self._sample_rd_hist = RDHistogram()
+        self._sample_rd_hist = RDHistogram(-1)
         self._sample_rd_hist.load_rd_hist_file(self._sample_rd_hist_file_path)
     
 
     def get_hit_rate_err_df(self) -> DataFrame:
-        """Get a DataFrame of hit rate error values at various cache sizes.
+        """ Get a DataFrame of hit rate error values at various cache sizes.
 
         Returns:
             hit_rate_err_df: DataFrame of hit rate error values at different cache sizes. 
@@ -63,19 +63,15 @@ class HitRateError:
         full_hr_arr = self._full_rd_hist.get_hit_rate_arr()
         sample_hr_arr = self._sample_rd_hist.get_hit_rate_arr()
 
-        """Convert the sampling rate from float like 0.8 to a fraction 4/5. The numerator
+        """ Convert the sampling rate from float like 0.8 to a fraction 4/5. The numerator
         and denominator of the fraction denotes the granularity of sample and full reuse
         distance histogram during error calculation. Here, total hit count at cache sizes
         1, 2, 3 and 4 in the sample reuse distance is compared to the total hit count at
-        cache sizes 1, 2, 3, 4 and 5. 
-        """
+        cache sizes 1, 2, 3, 4 and 5 in reuse distances from the full trace. """
         sample_rate_fraction = Fraction(str(self._sample_rate))
         sample_step_size, full_step_size = sample_rate_fraction.numerator, sample_rate_fraction.denominator
+        num_sample_size_windows = ceil((self._sample_rd_hist.max_rd+1)/sample_step_size)     
 
-        print(sample_step_size, full_step_size)
-        num_sample_size_windows = ceil((self._sample_rd_hist.max_rd+1)/sample_step_size)  
-        print(num_sample_size_windows)   
-        print(self._sample_rd_hist.max_rd, self._full_rd_hist.max_rd)   
         hit_rate_err_arr = []
         for size_window_index in range(1, num_sample_size_windows+1):
             sample_cache_size = size_window_index * sample_step_size
@@ -119,5 +115,4 @@ class HitRateError:
                                         "delta_write_hr": abs_write_err,
                                         "percent_write_hr": hr_write_err})
 
-        print(DataFrame(hit_rate_err_arr, index=range(len(hit_rate_err_arr))))
         return DataFrame(hit_rate_err_arr, index=range(len(hit_rate_err_arr)))

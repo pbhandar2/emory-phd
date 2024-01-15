@@ -116,11 +116,11 @@ class Plot:
         handles, labels = ax.get_legend_handles_labels()
         self.fig.legend(handles, labels, loc='upper center', ncol=6, fontsize=self.legend_font_size*self.scaler, bbox_to_anchor=(0.5, 0.95))
 
+
     def savefig(
             self, 
             path: Path
     ) -> None:
-        #self.fig.subplots_adjust(hspace=0, wspace=0)
         plt.savefig(path, bbox_inches='tight')
 
 

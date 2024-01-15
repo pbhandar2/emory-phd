@@ -99,7 +99,6 @@ def get_hrc_err_dict(
 def get_hrc_err_arr(
         full_hrc_arr: ndarray,
         sample_hrc_arr: ndarray,
-        rate: int,
         cache_size_percent_arr: ndarray = arange(101, dtype=int)
 ) -> ndarray:
     assert len(full_hrc_arr) >= len(sample_hrc_arr), "Sample HRC has more items than the full HRC."
