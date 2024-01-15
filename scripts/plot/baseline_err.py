@@ -10,7 +10,7 @@ from keyuri.config.BaseConfig import BaseConfig
 
 
 def plot(data_df: DataFrame, plot_path: Path) -> None:
-    plt.rcParams.update({'font.size': 22})
+    plt.rcParams.update({'font.size': 30})
     fig, ax = plt.subplots(figsize=[28,10])
 
     print(data_df.columns.values)
