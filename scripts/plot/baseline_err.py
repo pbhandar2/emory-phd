@@ -13,8 +13,6 @@ def plot(data_df: DataFrame, plot_path: Path) -> None:
     plt.rcParams.update({'font.size': 37})
     fig, ax = plt.subplots(figsize=[28,10])
 
-    print(data_df.columns.values)
-
     ax.boxplot(data_df[["cur_mean_read_size", 
                         "cur_mean_write_size",
                         "cur_mean_read_iat",
@@ -27,7 +25,6 @@ def plot(data_df: DataFrame, plot_path: Path) -> None:
                         "overall_hr"]], showfliers=False)
     
     ax.axhline(y=0, linestyle='--')
-    
     ax.set_xticks(range(1, 11))
     ax.set_xticklabels(["Read \nSize", 
                         "Write \nSize",

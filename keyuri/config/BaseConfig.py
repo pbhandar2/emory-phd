@@ -60,6 +60,7 @@ class BaseConfig:
         self._access_features_dir_path = self._source.joinpath(workload_set_name, "access_features_files")
         self._miss_rate_error_data_dir_path = self._source.joinpath(workload_set_name, "hit_rate_error")
         self._per_iteration_output_dir_path = self._source.joinpath(workload_set_name, "per_iteration_output")
+        self._sample_feature_output_dir_path = self._source.joinpath(workload_set_name, "sampling_features")
 
         self._post_process_algo_output_dir_path = self._source.joinpath(workload_set_name, "post_process")
         self._post_process_cache_trace_dir_path = self._source.joinpath(workload_set_name, "post_process_cache_trace")
@@ -235,6 +236,21 @@ class BaseConfig:
             for output_file_path in workload_dir.iterdir():
                 sample_error_file_list.append(output_file_path)
         return sample_error_file_list
+
+
+    
+    def get_sample_feature_file_path(
+            self,
+            sample_set_name: str, 
+            workload_name: str 
+    ) -> Path:
+        compound_workload_set_name = self.get_compound_workload_set_name(sample_set_name)
+        assert "--" not in sample_set_name and "--" not in self._workload_set_name,\
+            "Sample set or workload name cannot have the string with two dashes --. Current compound workload set name: {}".format(compound_workload_set_name)
+        new_base_config = BaseConfig(workload_set_name=compound_workload_set_name)
+        return self._sample_feature_output_dir_path.joinpath("{}.csv".format(workload_name))
+
+
 
 
     
