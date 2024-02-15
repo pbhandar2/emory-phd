@@ -10,7 +10,7 @@ def main():
     parser = ArgumentParser(description="Compute hit rate error by comparing reuse distance histograms generated from full and sample traces.")
     parser.add_argument("workload_name", type=str, help="Name of the workload.")
     parser.add_argument("--workload_type", type=str, default="cp", help="Type of workload.")
-    parser.add_argument("--sample_type", "-t", type=str, default="iat", help="Type of sample.")
+    parser.add_argument("--sample_type", "-t", type=str, default="basic", help="Type of sample.")
     args = parser.parse_args()
 
     global_config = BaseConfig()

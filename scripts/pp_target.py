@@ -1,5 +1,5 @@
-from argparse import ArgumentParser
 from pandas import read_csv 
+from argparse import ArgumentParser
 
 from keyuri.experiments.PPTargetRate import PPTargetRate
 
@@ -22,6 +22,16 @@ if __name__ == "__main__":
                             "-m", 
                             type=str, 
                             help="The metric used by the post-processing algorithm.")
+
+    parser.add_argument("--pmetric",
+                            "-pm",
+                            type=str,
+                            help="The priority metric to select blocks to evaluate.")
+    
+    parser.add_argument("--neval",
+                            "-n",
+                            type=int,
+                            help="The number of improving evaluation to consider before terminating.")
     
     parser.add_argument("--rate",
                             "-r",
@@ -54,9 +64,11 @@ if __name__ == "__main__":
     cp_feature_df = read_csv("./test/block.csv")
     block_count = int(cp_feature_df[cp_feature_df["workload"]==args.workload]["wss"]/4096)
 
+    metric_name = "first_{}_{}_{}".format(args.neval, args.metric, args.pmetric)
+
     post_process = PPTargetRate(args.workload,
                                         args.type,
-                                        args.metric,
+                                        metric_name,
                                         args.rate,
                                         args.bits,
                                         args.seed,

@@ -225,10 +225,13 @@ def main():
 
 
     output_df = read_csv(pp_output_file_path)
-    print(output_df)
-    # extract the first row where where the hit rate is less than or equal to the target rate 
-    first_row = output_df.loc[output_df['rate'] <= args.targetrate].iloc[0]
-    output_df = output_df[output_df["block_count"] >= first_row["block_count"]]
+    print(output_df[["mean", "rate"]])
+    min_rate = output_df["rate"].min()
+
+    if min_rate <= args.targetrate:
+        # extract the first row where where the hit rate is less than or equal to the target rate 
+        first_row = output_df.loc[output_df['rate'] <= args.targetrate].iloc[0]
+        output_df = output_df[output_df["block_count"] >= first_row["block_count"]]
     max_num_iter = len(output_df)
 
 
@@ -243,7 +246,7 @@ def main():
     
     print(pp_hit_rate_error_file_list)
     if len(pp_hit_rate_error_file_list) < 2:
-        print("Too little points to plot.")
+        hr_df = read_csv(pp_hit_rate_error_file_list[0])
         return 
 
 
@@ -270,14 +273,14 @@ def main():
     plot_path = Path(args.output_dir).joinpath("{}/{}/{}/{}_{}_{}_{}_{}.png".format(base_config.get_compound_workload_set_name(args.type), 
                                                                         args.workload, 
                                                                         args.metric,
-                                                                        int(100 * args.rate),
+                                                                        args.rate,
                                                                         args.bits,
                                                                         args.seed,
                                                                         args.abits,
-                                                                        int(100*args.targetrate)))
+                                                                        args.targetrate))
 
 
-    cp_feature_df = read_csv("../test/block.csv")
+    cp_feature_df = read_csv("/home/pranav/emory-phd/scripts/test/block.csv")
     block_count = int(cp_feature_df[cp_feature_df["workload"]==args.workload]["wss"]/4096)
 
     sample_cache_trace_path = base_config.get_sample_cache_trace_path(args.type, args.workload, int(100*args.rate), args.bits, args.seed)
@@ -302,7 +305,7 @@ def main():
 
     # print(data_df["rate"].to_list()[::10])
     print(data_df)
- 
+    print(plot_path)
     plot(data_df, plot_path)
 
 
