@@ -395,7 +395,22 @@ class BaseConfig:
             "Sample set or workload name cannot have the string with two dashes --. Current compound workload set name: {}".format(compound_workload_set_name)
         new_base_config = BaseConfig(workload_set_name=compound_workload_set_name)
         return new_base_config._post_process_algo_output_dir_path.joinpath("{}_{}".format(metric_name, algo_bits), workload_name)
+
+
+    def get_all_sample_post_process_dir_path(
+            self,
+            sample_set_name: str,
+            metric_name: str,
+            algo_bits: int 
+    ) -> Path:
+        compound_workload_set_name = self.get_compound_workload_set_name(sample_set_name)
+        assert "--" not in sample_set_name,\
+            "Sample set or workload name cannot have the string with two dashes --. Current compound workload set name: {}".format(compound_workload_set_name)
+        new_base_config = BaseConfig(workload_set_name=compound_workload_set_name)
+        dir_path = new_base_config._post_process_algo_output_dir_path.joinpath("{}_{}".format(metric_name, algo_bits))
+        return list(dir_path.iterdir())
     
+
 
     def get_sample_access_feature_file_path(
             self,
@@ -421,6 +436,30 @@ class BaseConfig:
     ) -> Path:
         sample_dir_path = self.get_sample_post_process_dir_path(sample_set_name, workload_name, metric_name, algo_bits)
         return sample_dir_path.joinpath(self.get_sample_file_name(rate, bits, seed))
+    
+
+    def get_all_sample_post_process_output_file_path(
+            self,
+            sample_set_name: str, 
+            metric_name: str, 
+            algo_bits: int,
+            rate: int, 
+            bits: int, 
+            seed: int
+    ) -> Path:
+        output_dir_list = self.get_all_sample_post_process_dir_path(sample_set_name, metric_name, algo_bits)
+
+        output_file_list = []
+        for workload_dir in output_dir_list:
+            for output_file_path in workload_dir.iterdir():
+                cur_rate, cur_bits, cur_seed = self.get_sample_file_info(output_file_path)
+                if cur_rate != rate or cur_bits != bits or cur_seed != seed:
+                    continue 
+
+                output_file_list.append(output_file_path)
+        
+        return output_file_list 
+                
 
 
     def get_post_process_cache_trace_dir_path(
