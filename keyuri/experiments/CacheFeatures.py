@@ -4,21 +4,44 @@ from keyuri.config.BaseConfig import BaseConfig
 from cydonia.profiler.CacheTrace import CacheTraceReader
 
 
-def generate_block_stat_file(
+def generate_next_sample_block_stat_file(
+        dir_config: BaseConfig = BaseConfig(),
+        sample_set_name: str = "basic",
+        check_for_size: bool = False 
+) -> None:
+    """ Generate a workload feature file if it does not exist for some sample. """
+    for cache_trace_path in dir_config.get_all_cache_traces():
+        workload_name = cache_trace_path.stem 
+        sample_path_list = dir_config.get_all_sample_cache_traces(sample_set_name, workload_name)
+        for sample_trace_path in sample_path_list:
+            print(sample_trace_path)
+            rate, bits, seed = dir_config.get_sample_file_info(sample_trace_path)
+            sample_feature_path = dir_config.get_sample_cache_features_path(sample_set_name, workload_name, rate, bits, seed)
+            if not sample_feature_path.exists():
+                print("Generating sample feature file {} form sample trace at {}".format(sample_feature_path, sample_trace_path))
+                generate_workload_feature_file(sample_trace_path, sample_feature_path)
+            else:
+                if check_for_size:
+                    # TODO: implement check file size and if its 0 then 
+                    pass 
+
+
+def generate_workload_feature_file(
         cache_trace_path: Path, 
         cache_feature_path: Path
 ) -> None:
-    cache_trace = CacheTraceReader(cache_trace_path)
-    block_stat = cache_trace.get_stat()
+    """ Create workload feature file from a cache trace. """
+    if cache_feature_path.exists():
+        print("File already exists!")
+        return True 
+
     cache_feature_path.parent.mkdir(exist_ok=True, parents=True)
     cache_feature_path.touch()
+
+    cache_trace = CacheTraceReader(cache_trace_path)
+    block_stat = cache_trace.get_stat()
     block_stat.write_to_file(cache_feature_path)
 
-
-class SampleSetCacheFeatures:
-    def __init__(self, workload_name: str, sample_name: str):
-        self._workload_name = workload_name
-        self._sample_name = sample_name 
 
 
 class CacheFeatures:
@@ -69,4 +92,4 @@ class CacheFeatures:
             return 
 
         print("Generating cache features {} from sample {}.".format(cache_feature_path, cache_trace_path))
-        generate_block_stat_file(cache_trace_path, cache_feature_path)
+        generate_workload_feature_file(cache_trace_path, cache_feature_path)
