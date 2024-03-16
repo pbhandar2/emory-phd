@@ -1,5 +1,24 @@
+from pathlib import Path 
+
 from keyuri.config.BaseConfig import BaseConfig
 from cydonia.profiler.CacheTrace import CacheTraceReader
+
+
+def generate_block_stat_file(
+        cache_trace_path: Path, 
+        cache_feature_path: Path
+) -> None:
+    cache_trace = CacheTraceReader(cache_trace_path)
+    block_stat = cache_trace.get_stat()
+    cache_feature_path.parent.mkdir(exist_ok=True, parents=True)
+    cache_feature_path.touch()
+    block_stat.write_to_file(cache_feature_path)
+
+
+class SampleSetCacheFeatures:
+    def __init__(self, workload_name: str, sample_name: str):
+        self._workload_name = workload_name
+        self._sample_name = sample_name 
 
 
 class CacheFeatures:
@@ -50,7 +69,4 @@ class CacheFeatures:
             return 
 
         print("Generating cache features {} from sample {}.".format(cache_feature_path, cache_trace_path))
-        cache_trace = CacheTraceReader(cache_trace_path)
-        block_stat = cache_trace.get_stat()
-        cache_feature_path.parent.mkdir(exist_ok=True, parents=True)
-        block_stat.write_to_file(cache_feature_path)
+        generate_block_stat_file(cache_trace_path, cache_feature_path)

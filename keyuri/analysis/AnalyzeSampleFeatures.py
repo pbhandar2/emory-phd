@@ -88,6 +88,7 @@ class AnalyzeSampleFeatures:
             for feature_name in sample_trace_feature_dict:
                 if feature_name not in full_trace_feature_dict:
                     continue 
+                
                 try:
                     sample_feature_val = float(sample_trace_feature_dict[feature_name])
                     full_feature_val = float(full_trace_feature_dict[feature_name])
