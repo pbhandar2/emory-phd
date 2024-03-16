@@ -39,7 +39,7 @@ def plot_multi_level_bar_plot(
         output_path: Path,
         feature_name_map: dict = DEFAULT_FEATURE_MAP
 ) -> None:
-    fig, ax = plt.subplots(figsize=[28,10*(len(feature_name_map.values()) - 2)], nrows=len(feature_name_map.values()), ncols=1)
+    fig, ax = plt.subplots(figsize=[28,40], nrows=len(feature_name_map.values()), ncols=1)
 
     for feature_index, feature_name in enumerate(feature_name_map):
         cur_ax = ax[feature_index]
@@ -54,6 +54,7 @@ def plot_multi_level_bar_plot(
     by_label = OrderedDict(zip(labels, handles))
     plt.legend(by_label.values(), by_label.keys())
 
+    plt.tight_layout()
     plt.savefig(output_path)
     plt.close(fig)
 
@@ -67,7 +68,7 @@ def plot_multi_bar(
         no_x_axis: bool = False 
 ) -> None:
     if title_str:
-        ax.set_title(title_str)
+        ax.set_title(title_str, fontsize=30)
 
     num_lower_addr_bits_ignored_count = len(num_lower_addr_bits_ignored_arr)
 
@@ -90,9 +91,9 @@ def plot_multi_bar(
         cur_x_value += 1
     
     if not no_x_axis:
-        ax.set_xticks(x_axis_bits_tick_index, x_axis_bits_tick_values, fontsize=18)
+        ax.set_xticks(x_axis_bits_tick_index, x_axis_bits_tick_values, fontsize=25)
         sec = ax.secondary_xaxis(location="bottom")
-        sec.set_xticks(x_axis_rate_tick_index, labels=["\n{}".format(_) for _ in x_axis_rate_tick_values], fontsize=24)
+        sec.set_xticks(x_axis_rate_tick_index, labels=["\n{}".format(_) for _ in x_axis_rate_tick_values], fontsize=30)
         ax.set_xlabel("\nSampling Rate")
 
 
@@ -103,7 +104,7 @@ def multi_bar_feature_error_plot(
         sampling_rate_arr: list = [1, 5, 10, 20, 40, 80],
         num_lower_addr_bits_ignored_arr: list = [0, 1, 2, 4]
 ) -> None:
-    fig, ax = plt.subplots(figsize=[28,10])
+    fig, ax = plt.subplots(figsize=[28,40])
     
     bar_pattern_dict = {
         0: '/',
