@@ -39,7 +39,7 @@ def plot_multi_level_bar_plot(
         output_path: Path,
         feature_name_map: dict = DEFAULT_FEATURE_MAP
 ) -> None:
-    fig, ax = plt.subplots(figsize=[28,40], nrows=len(feature_name_map.values()), ncols=1)
+    fig, ax = plt.subplots(figsize=[28,50], nrows=len(feature_name_map.values()), ncols=1)
 
     for feature_index, feature_name in enumerate(feature_name_map):
         cur_ax = ax[feature_index]
@@ -68,7 +68,7 @@ def plot_multi_bar(
         no_x_axis: bool = False 
 ) -> None:
     if title_str:
-        ax.set_title(title_str, fontsize=30)
+        ax.set_title(title_str, fontsize=35)
 
     num_lower_addr_bits_ignored_count = len(num_lower_addr_bits_ignored_arr)
 
@@ -94,7 +94,7 @@ def plot_multi_bar(
         ax.set_xticks(x_axis_bits_tick_index, x_axis_bits_tick_values, fontsize=25)
         sec = ax.secondary_xaxis(location="bottom")
         sec.set_xticks(x_axis_rate_tick_index, labels=["\n{}".format(_) for _ in x_axis_rate_tick_values], fontsize=30)
-        ax.set_xlabel("\nSampling Rate")
+        ax.set_xlabel("\nSampling Rate", fontsize=35)
 
 
 
