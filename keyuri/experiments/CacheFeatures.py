@@ -4,7 +4,7 @@ from keyuri.config.BaseConfig import BaseConfig
 from cydonia.profiler.CacheTrace import CacheTraceReader
 
 
-def generate_next_sample_block_stat_file(
+def generate_next_sample_workload_feature_file(
         dir_config: BaseConfig = BaseConfig(),
         sample_set_name: str = "basic",
         check_for_size: bool = False 

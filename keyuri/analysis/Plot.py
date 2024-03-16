@@ -6,9 +6,14 @@ Usage:
 """
 
 from pathlib import Path 
-from numpy import array
 
 import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+
+DEFAULT_FONT_SIZE = 37
+DEFAULT_FIG_SIZE = [28, 10]
+
+plt.rcParams.update({'font.size': DEFAULT_FONT_SIZE})
 
 
 class Plot:
@@ -16,7 +21,7 @@ class Plot:
             self,
             row_count = 1, 
             col_count = 1, 
-            fig_size = [10, 7],
+            fig_size = DEFAULT_FIG_SIZE,
             scaler: int = 5
     ) -> None:
         """Initiate the plot. 
