@@ -3,8 +3,7 @@ from pathlib import Path
 from keyuri.config.BaseConfig import BaseConfig
 
 
-def get_all_cp_workloads():
-    return ["w{}".format(i) if i > 9 else "w0{}".format(i) for i in range(1, 107)]
+
 
 
 def get_samples_not_profiled(

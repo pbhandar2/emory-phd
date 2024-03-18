@@ -1,9 +1,81 @@
 from fractions import Fraction
 from pathlib import Path 
 from math import ceil 
-from pandas import DataFrame
+from pandas import DataFrame, read_csv 
 
 from cydonia.profiler.RDHistogram import RDHistogram
+from keyuri.config.BaseConfig import BaseConfig, get_all_cp_workloads
+
+
+class CumHitRateError:
+    def __init__(
+            self, 
+            sample_set_name: str, 
+            cum_hit_rate_error_file: Path,
+            dir_config: BaseConfig = BaseConfig()
+    ) -> None:
+        self._sample_set_name = sample_set_name
+        self._dir_config = dir_config
+        self._err_file = cum_hit_rate_error_file
+
+        self._err_df = None 
+        if self._err_file.exists():
+            self._err_df = read_csv(self._err_file)
+    
+
+    def check_if_completed(self, workload, rate, bits, seed):
+        if not self._err_df:
+            return False 
+        else:
+            rows = self._err_df[(self._err_df["rate"] == rate) &
+                                    (self._err_df["bits"] == bits) &
+                                    (self._err_df["seed"] == seed) &
+                                    (self._err_df["workload"] == workload)]
+            return len(rows) > 0
+        
+    
+    def add_to_error_file(self, error_dict: dict) -> None:
+        new_df = DataFrame([error_dict])
+        if not self._err_df:
+            new_df.to_csv(self._err_file, index=False)
+        else:
+            cur_df = read_csv(self._err_file)
+            
+    
+
+    def compute_cum_hit_rate_error(self, error_file, workload, rate, bits, seed):
+        hit_rate_df = read_csv(error_file)
+
+        # get mean, p99 of hit rate error (read/write/overall)
+        percent_diff_dict = {}
+
+        req_type_arr = ["read", "write", "overall"]
+        quantiles = [0.5, 0.75, 0.9, 0.95, 0.99, 0.999, 0.9999]
+        for req_type in req_type_arr:
+            cur_df = hit_rate_df["percent_{}_hr".format(req_type)]
+            percent_diff_dict["{}_mean".format(req_type)] = cur_df.mean()
+            quantile_val_arr = cur_df.quantile(quantiles)
+            for quantile_val in quantiles:
+                percent_diff_dict["{}_{}".format(req_type, quantile_val)] = quantile_val_arr[quantile_val]
+
+        percent_diff_dict["rate"], percent_diff_dict["bits"], percent_diff_dict["seed"] = rate, bits, seed
+        percent_diff_dict["workload"] = workload
+        return percent_diff_dict
+    
+
+    def generate_all(self):
+        hit_rate_error_file_list = self._dir_config.get_all_hit_rate_error_files(self._sample_set_name)
+        for hit_rate_error_file in hit_rate_error_file_list:
+            workload_name = hit_rate_error_file.parent.name
+            rate, bits, seed = self._dir_config.get_sample_file_info(hit_rate_error_file)
+
+            if not self.check_if_completed(workload_name, rate, bits, seed):
+                print(hit_rate_error_file)
+                percent_diff_dict = self.compute_cum_hit_rate_error(hit_rate_error_file, workload_name, rate, bits, seed)
+                print(percent_diff_dict)
+
+
+
 
 
 class MultiHitRateError:
@@ -27,6 +99,7 @@ class MultiHitRateError:
                 continue
             
             print("Generating hit rate error file {}.".format(hit_rate_err_file_path))
+            hit_rate_err_file_path.touch()
             split_rd_hist_file_name = sample_rd_hist_file_path.stem.split('_')
             rate = float(split_rd_hist_file_name[0])/100
 

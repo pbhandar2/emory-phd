@@ -38,6 +38,10 @@ from pathlib import Path
 
 DEFAULT_SOURCE_DIR_PATH = Path("/research2/mtc/cp_traces/pranav-phd")
 
+def get_all_cp_workloads():
+    return ["w{}".format(i) if i > 9 else "w0{}".format(i) for i in range(106, 0, -1)]
+
+
 class BaseConfig:
     def __init__(
             self,
@@ -61,6 +65,7 @@ class BaseConfig:
         self._miss_rate_error_data_dir_path = self._source.joinpath(workload_set_name, "hit_rate_error")
         self._per_iteration_output_dir_path = self._source.joinpath(workload_set_name, "per_iteration_output")
         self._sample_feature_output_dir_path = self._source.joinpath(workload_set_name, "sampling_features")
+        self._cum_hr_error_data_dir_path = self._source.joinpath(workload_set_name, "cum_hr_error")
 
         self._post_process_algo_output_dir_path = self._source.joinpath(workload_set_name, "post_process")
         self._post_process_cache_trace_dir_path = self._source.joinpath(workload_set_name, "post_process_cache_trace")
@@ -149,7 +154,21 @@ class BaseConfig:
     @staticmethod
     def get_sample_file_name(rate, bits, seed, extension=".csv"):
         return "{}_{}_{}{}".format(rate, bits, seed, extension)
-    
+
+
+    def get_all_hit_rate_error_files(self, sample_set_name: str):
+        if self._workload_set_name == "cp":
+            workload_list = get_all_cp_workloads()
+        else:
+            raise ValueError("Workload set {} not supported!".format(self._workload_set_name))
+        
+        hit_rate_error_file_list = []
+        for workload_name in workload_list:
+            hit_rate_error_data_dir = self.get_hit_rate_error_data_dir_path(sample_set_name, workload_name)
+            for hit_rate_error_file in hit_rate_error_data_dir.iterdir():
+                hit_rate_error_file_list.append(hit_rate_error_file)
+        return hit_rate_error_file_list
+
 
     def get_hit_rate_error_data_dir_path(
             self,
@@ -161,6 +180,18 @@ class BaseConfig:
             "Sample set or workload name cannot have the string with two dashes --. Current compound workload set name: {}".format(compound_workload_set_name)
         new_base_config = BaseConfig(workload_set_name=compound_workload_set_name)
         return new_base_config._miss_rate_error_data_dir_path.joinpath(workload_name)
+    
+
+    def get_cum_hit_rate_error_data_dir_path(
+            self,
+            sample_set_name: str, 
+            workload_name: str 
+    ) -> Path:
+        compound_workload_set_name = self.get_compound_workload_set_name(sample_set_name)
+        assert "--" not in sample_set_name and "--" not in workload_name and "--" not in self._workload_set_name,\
+            "Sample set or workload name cannot have the string with two dashes --. Current compound workload set name: {}".format(compound_workload_set_name)
+        new_base_config = BaseConfig(workload_set_name=compound_workload_set_name)
+        return new_base_config._cum_hr_error_data_dir_path.joinpath(workload_name)
     
 
     def get_sample_cache_features_dir_path(
@@ -289,6 +320,18 @@ class BaseConfig:
             seed: int
     ) -> Path:
         sample_dir_path = self.get_hit_rate_error_data_dir_path(sample_set_name, workload_name)
+        return sample_dir_path.joinpath(self.get_sample_file_name(rate, bits, seed))
+    
+
+    def get_cum_hit_rate_error_file_path(
+            self,
+            sample_set_name: str, 
+            workload_name: str, 
+            rate: int, 
+            bits: int, 
+            seed: int
+    ) -> Path:
+        sample_dir_path = self.get_cum_hit_rate_error_data_dir_path(sample_set_name, workload_name)
         return sample_dir_path.joinpath(self.get_sample_file_name(rate, bits, seed))
     
     
@@ -784,3 +827,7 @@ class BaseConfig:
                 elif num_iter <= max_num_iter:
                     path_list.append(data_path) 
             return path_list
+    
+    @staticmethod
+    def get_all_cp_workloads():
+        return ["w{}".format(i) if i > 9 else "w0{}".format(i) for i in range(1, 107)]
