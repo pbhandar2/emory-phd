@@ -6,12 +6,14 @@ from numpy import mean
 from keyuri.analysis.PlotMRC import get_hrc
 from keyuri.config.BaseConfig import BaseConfig
 
+from cydonia.profiler.RDHistogram import RDHistogram
 
-def hrc_mae(hrc_arr, sample_hrc_arr, sample_rate):
+
+def hrc_mae(hrc_arr: list, sample_hrc_arr: list, sample_ratio: float):
     err_arr = []
     max_cache_size = 0
     for cur_size in range(len(sample_hrc_arr)):
-        sample_size = int(cur_size/sample_rate)
+        sample_size = int(cur_size/sample_ratio)
 
         hrc_size = sample_size 
         if sample_size >= len(hrc_arr):
@@ -76,25 +78,37 @@ def main():
     parser.add_argument("workload", type=str, help="Name of the workload.")
     parser.add_argument("--output_dir", "-o", type=Path, default=Path("./files/mrc"), help="Output directory of plots.")
     parser.add_argument("--sample_type", "-s", type=str, default="none", help="The type of sample.")
+    parser.add_argument("--source_dir_path", "-d", type=Path, default=None, help="The source dir of data.")
     args = parser.parse_args()
 
-    config = BaseConfig()
+    config = BaseConfig(source_dir_path=args.source_dir_path)
     rd_hist_file_path = config.get_rd_hist_file_path(args.workload)
-    read_hrc_arr, write_hrc_arr, overall_hrc_arr = get_hrc(rd_hist_file_path)
+    # rd_hist = RDHistogram(-1)
+    # rd_hist.load_rd_hist_file(rd_hist_file_path)
+    # hit_ratio_arr = rd_hist.get_hit_ratio_arr()
+
+    read_ratio_arr, write_ratio_arr, overall_ratio_arr = get_hrc(rd_hist_file_path)
 
     plt.rcParams.update({'font.size': 22})
 
     if args.sample_type == "none":
         output_path = args.output_dir.joinpath(args.sample_type, "{}.png".format(args.workload))
-        plot(read_hrc_arr, write_hrc_arr, overall_hrc_arr, output_path)
+        plot(read_ratio_arr, write_ratio_arr, overall_ratio_arr, output_path)
     else:
         sample_rd_hist_dir = config.get_sample_rd_hist_dir_path(args.sample_type, args.workload)
         for sample_rd_hist_file_path in sample_rd_hist_dir.iterdir():
             split_sample_file_name = sample_rd_hist_file_path.stem.split('_')
             rate, bits, seed = int(split_sample_file_name[0]), int(split_sample_file_name[1]), int(split_sample_file_name[2])
             output_path = args.output_dir.joinpath(args.sample_type, args.workload, "{}.png".format(sample_rd_hist_file_path.stem))
-            sample_read_hrc_arr, sample_write_hrc_arr, sample_overall_hrc_arr = get_hrc(sample_rd_hist_file_path)
-            plot_sample(read_hrc_arr, write_hrc_arr, overall_hrc_arr, sample_read_hrc_arr, sample_write_hrc_arr, sample_overall_hrc_arr, float(rate)/100, output_path)
+
+            # sample_rd_hist = RDHistogram(-1)
+            # sample_rd_hist.load_rd_hist_file(sample_rd_hist_file_path)
+            # sample_hit_ratio_arr = sample_rd_hist.get_hit_ratio_arr()
+
+            sample_read_ratio_arr, sample_write_ratio_arr, sample_overall_ratio_arr = get_hrc(sample_rd_hist_file_path)
+
+            # sample_read_hrc_arr, sample_write_hrc_arr, sample_overall_hrc_arr = get_hrc(sample_rd_hist_file_path)
+            plot_sample(read_ratio_arr, write_ratio_arr, overall_ratio_arr, sample_read_ratio_arr, sample_write_ratio_arr, sample_overall_ratio_arr, float(rate)/100, output_path)
             
 
 if __name__ == "__main__":

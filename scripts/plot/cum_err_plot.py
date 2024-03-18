@@ -270,7 +270,7 @@ def main():
         print("Sample hit rate error file {} exists. Exiting.".format(sample_hit_rate_error_file_path))
         return 
     
-    plot_path = Path(args.output_dir).joinpath("{}/{}/{}/{}_{}_{}_{}_{}.png".format(base_config.get_compound_workload_set_name(args.type), 
+    plot_path = Path(args.output_dir).joinpath("{}/{}/{}/{}_{}_{}_{}_{}.pdf".format(base_config.get_compound_workload_set_name(args.type), 
                                                                         args.workload, 
                                                                         args.metric,
                                                                         args.rate,
