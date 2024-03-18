@@ -85,7 +85,7 @@ def plot_replay_bar_plot(
             mean_val = mean(data[feature_key][bits])
             std_val = std(data[feature_key][bits])
             ax.bar(cur_x_value, mean_val, color='white', edgecolor='black', hatch=hatch_arr[bit_index], label=bits_arr[bit_index])
-            ax.text(cur_x_value, mean_val + 0.15, str(int(mean_val)), ha='center')
+            ax.text(cur_x_value, mean_val + 0.2, str(int(mean_val)), ha='center', fontsize=30)
             #ax.errorbar(cur_x_value, mean_val, yerr=std_val)
             cur_x_value += 1
         
@@ -100,7 +100,7 @@ def plot_replay_bar_plot(
 
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = OrderedDict(zip(labels, handles))
-    plt.legend(by_label.values(), by_label.keys())
+    plt.legend(by_label.values(), by_label.keys(), fontsize=45)
 
     plt.tight_layout()
     plt.savefig(output_path)
