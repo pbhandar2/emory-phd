@@ -51,7 +51,7 @@ def main():
     args = parser.parse_args()
 
     err_df = get_replay_err_df()
-    err_df = err_df[(err_df["workload"] == args.workload) & (err_df["rate"] == args.rate)]
+    err_df = err_df[(err_df["workload"] == args.workload) & (err_df["rate"] == args.rate) & (err_df[""])]
     output_path = Path("./files/per_workload_plot/{}_{}.pdf".format(args.workload, args.rate))
     plot_per_workload(err_df, output_path)
 
