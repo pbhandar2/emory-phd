@@ -36,18 +36,18 @@ def main():
 
     # calculate the proportional values of samples
     p = 1. * arange(len(set3_df)) / (len(set3_df) - 1)
-    ax.plot(p, set3_df, '-*', label="10% + PP", markersize=15, alpha=0.6)
+    ax.plot(p, set3_df, '-^', label="10% + PP", markersize=15, alpha=0.6)
 
     # 20 process from no preprocess
     set4_df = sorted(err_df[(err_df["rate"]==40) & (err_df["bits"]==4) & (err_df["pp_n"] == -1)]["bandwidth"])
 
     # calculate the proportional values of samples
     p = 1. * arange(len(set4_df)) / (len(set4_df) - 1)
-    ax.plot(p, set4_df, '-*', label="40%", markersize=15, alpha=0.6)
+    ax.plot(p, set4_df, '-d', label="40%", markersize=15, alpha=0.6)
 
-    ax.set_ylabel("Percent Bandwidth Error (%)")
-    ax.set_xlabel("CDF")
-    ax.legend()
+    ax.set_ylabel("Percent Bandwidth Error (%)", fontsize=40)
+    ax.set_xlabel("CDF", fontsize=40)
+    ax.legend(fontsize=35)
 
 
     #ax.plot(sorted(set1_df), per_20_pp_w96_cdf)
