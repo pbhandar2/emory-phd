@@ -7,7 +7,7 @@ from keyuri.config.BaseConfig import BaseConfig
 from keyuri.config.PostProcessConfig import PostProcessFiles, validate_post_process_output_file, \
                                                 get_num_iter_post_processing, get_min_num_iter_post_processing
 from keyuri.experiments.HitRateError import HitRateError
-from rd_trace import CreateRDTrace, create_rd_hist
+from keyuri.analysis.ProfileCacheTrace import CreateRDTrace, create_rd_hist
 
 
 def create_post_process_rd_hist(file_dict, args, num_iter):

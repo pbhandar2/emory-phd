@@ -62,7 +62,7 @@ def scatter_plot_pp_perf(
             legend_arr = []
 
         axs[pair_index].set_title(feature_to_title_map[feature_set_key])
-        scatter_plot(axs[pair_index], x_val_arr, y_val_arr, legend_arr, 'Iteration', 'Delta Error (%)', output_path)
+        scatter_plot(axs[pair_index], x_val_arr, y_val_arr, legend_arr)
 
         if pair_index < len(err_group_list) - 1:
             axs[pair_index].set_xticks([])
@@ -79,26 +79,17 @@ def scatter_plot(
         ax: Axes,
         x_val_arr: list,
         y_val_arr: list, 
-        legend_arr: list,
-        xlabel: str,
-        ylabel: str,
-        output_path: Path, 
-        font_size: int = FONT_SIZE,
-        fig_size: list = FIG_SIZE
+        legend_arr: list
 ) -> None:
-    print("Generating file at ", output_path)
-
     marker_arr = ['P', 'o']
     color_arr = ['g', 'b']
 
     index = 0 
     for x_arr, y_arr in zip(x_val_arr, y_val_arr):
         if not legend_arr:
-            ax.scatter(x_arr, y_arr, marker=marker_arr[index], s=250, alpha=0.5, color=color_arr[index])
+            ax.scatter(x_arr, y_arr, marker=marker_arr[index], s=275, alpha=0.5, color=color_arr[index])
         else:
-            print(legend_arr)
-            print(index)
-            ax.scatter(x_arr, y_arr, marker=marker_arr[index], s=250, alpha=0.5, color=color_arr[index], label=legend_arr[index])
+            ax.scatter(x_arr, y_arr, marker=marker_arr[index], s=275, alpha=0.5, color=color_arr[index], label=legend_arr[index])
         index += 1 
     
     if legend_arr:

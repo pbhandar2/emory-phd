@@ -4,75 +4,66 @@ the full and sample traces.
 
 from pathlib import Path 
 from pandas import read_csv 
-from json import dump, JSONEncoder
-from numpy import ndarray, int64
+from numpy import inf, zeros, savetxt
+from collections import Counter 
 
-from keyuri.config.BaseConfig import BaseConfig
-from cydonia.profiler.CacheTraceProfiler import get_workload_feature_dict_from_cache_trace
-
-
-class NumpyEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, ndarray):
-            return obj.tolist()
-        elif isinstance(obj, int64):
-            return int(obj)
-        return JSONEncoder.default(self, obj)
+from cydonia.profiler.CacheTrace import CacheTraceReader
+from PyMimircache.cacheReader.csvReader import CsvReader
+from PyMimircache.profiler.cLRUProfiler import CLRUProfiler as LRUProfiler
 
 
-class ProfileCacheTrace:
-    def __init__(
-            self,
-            workload_name: str,
-            workload_type: str = "cp",
-            sample_type: str = "iat"
-    ) -> None:
-        self._config = BaseConfig()
-        self._workload_name = workload_name
-        self._workload_type = workload_type 
-        self._sample_type = sample_type 
+def create_rd_hist(
+        cache_trace_path: Path, 
+        rd_trace_path: Path, 
+        rd_hist_path: Path
+) -> None:
+    max_rd = -inf 
+    read_rd_counter, write_rd_counter = Counter(), Counter()
+    cache_trace_reader = CacheTraceReader(cache_trace_path)
+    with rd_trace_path.open("r") as rd_trace_handle:
+        rd_trace_line = rd_trace_handle.readline().rstrip()
+        while rd_trace_line:
+            cur_rd_val = int(rd_trace_line)
+            cur_cache_req = cache_trace_reader.get_next_cache_req()
+            if cur_cache_req[cache_trace_reader._config.op_header_name] == "r":
+                read_rd_counter[cur_rd_val] += 1
+            elif cur_cache_req[cache_trace_reader._config.op_header_name] == "w":
+                write_rd_counter[cur_rd_val] += 1
+            else:
+                raise ValueError("Unknown OP type {}.".format(cur_cache_req[cache_trace_reader._config.op_header_name]))
+
+            if cur_rd_val > max_rd:
+                max_rd = cur_rd_val
+            rd_trace_line = rd_trace_handle.readline().rstrip()
+        
+    assert max_rd > -inf 
+    rd_hist_arr = zeros((max_rd + 2, 2), dtype=int)
+    rd_hist_arr[0][0], rd_hist_arr[0][1] = int(read_rd_counter[-1]), int(write_rd_counter[-1])
+    for cur_rd in range(max_rd + 1):
+        rd_hist_arr[cur_rd + 1][0] = int(read_rd_counter[cur_rd])
+        rd_hist_arr[cur_rd + 1][1] = int(write_rd_counter[cur_rd])
+    
+    rd_hist_path.parent.mkdir(exist_ok=True, parents=True)
+    savetxt(str(rd_hist_path.absolute()), rd_hist_arr, delimiter=",", fmt="%d")
+        
+
+class CreateRDTrace:
+    def __init__(self, cache_trace_path: Path):
+        self._cache_trace_path = cache_trace_path
     
 
-    def profile(self, rate, bits, seed, force_flag=False):
-        source_cache_trace_path = self._config.get_cache_trace_path(self._workload_name)
-        source_cache_feature_path = self._config.get_cache_features_path(self._workload_name)
+    def create(self, rd_trace_path: Path):
+        init_params = {
+            "label": 3
+        }
+        csv_reader = CsvReader(str(self._cache_trace_path), init_params=init_params)
+        lru_profiler = LRUProfiler(csv_reader)
+        reuse_distance_arr = lru_profiler.get_reuse_distance()
+        rd_arr = reuse_distance_arr.astype(int)
+        savetxt(str(rd_trace_path), rd_arr, fmt='%i', delimiter='\n')
 
-        if not source_cache_feature_path.exists() or force_flag:
-            print("Computing cache features for {} at {}.".format(source_cache_trace_path, source_cache_feature_path))
-            source_cache_feature_dict = self.compute_base_features(source_cache_trace_path)
-            source_cache_feature_path.parent.mkdir(exist_ok=True, parents=True)
-            with source_cache_feature_path.open("w+") as cache_feature_handle:
-                dump(source_cache_feature_dict, cache_feature_handle, cls=NumpyEncoder)
-        else:
-            print("Already done cache features for {} at {}.".format(source_cache_trace_path, source_cache_feature_path))
-        
-        sample_cache_trace_path_list = self._config.get_all_sample_cache_traces(self._sample_type, self._workload_name)
-        for sample_cache_trace_path in sample_cache_trace_path_list:
-            if '.rd' in sample_cache_trace_path.name:
-                continue 
-            split_sample_file_name = sample_cache_trace_path.stem.split('_')
-            cur_rate, cur_bits, cur_seed = int(split_sample_file_name[0]), int(split_sample_file_name[1]), int(split_sample_file_name[2])
+        rd_trace_df = read_csv(rd_trace_path, names=['rd'])
+        cache_trace_df = read_csv(self._cache_trace_path, names=["i", "iat", "key", "op", "front_misalign", "rear_misalign"])
 
-            if rate != cur_rate or bits != cur_bits or seed != cur_seed:
-                continue 
-
-            sample_cache_feature_path = self._config.get_sample_cache_features_path(self._sample_type,
-                                                                                        self._workload_name,
-                                                                                        rate,
-                                                                                        bits,
-                                                                                        seed)
-
-            if not sample_cache_feature_path.exists() or force_flag:
-                print("Computing cache features for {} at {}.".format(sample_cache_trace_path, sample_cache_feature_path))
-                sample_cache_feature_dict = self.compute_base_features(sample_cache_trace_path)
-                sample_cache_feature_path.parent.mkdir(exist_ok=True, parents=True)
-                with sample_cache_feature_path.open("w+") as sample_cache_feature_handle:
-                    dump(sample_cache_feature_dict, sample_cache_feature_handle, cls=NumpyEncoder)
-            else:
-                print("Already done cache features for {} at {}.".format(sample_cache_trace_path, sample_cache_feature_path))
-
-
-    @staticmethod
-    def compute_base_features(cache_trace_path: Path) -> dict:
-        df = read_csv(cache_trace_path, names=["i", "iat", "key", "op", "front_misalign", "rear_misalign"])
-        return get_workload_feature_dict_from_cache_trace(df)
+        assert len(rd_trace_df) == len(cache_trace_df), \
+            "Rd trace len {} and cache trace len {} not equal".format(len(rd_trace_df), len(cache_trace_df))

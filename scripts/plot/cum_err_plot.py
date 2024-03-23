@@ -71,7 +71,7 @@ def plot_mean(ax: plt.Axes, data_df: DataFrame):
 
     markersize_val = 15
     alpha_val = 1.0
-    ax.plot(num_iter_arr, mean_arr, '-s', color="teal", markersize=markersize_val, alpha=alpha_val, label="Overall Mean Error")
+    ax.plot(num_iter_arr, mean_arr, '-s', color="teal", markersize=markersize_val, alpha=alpha_val, label="Mean Error")
     ax.invert_xaxis()
 
 
@@ -86,7 +86,7 @@ def plot(data_df: DataFrame, plot_path: Path):
     axs[0][0].set_title("Read", fontsize=title_font_size)
     axs[0][1].set_title("Write", fontsize=title_font_size)
     axs[1][0].set_title("Hit Rate Error", fontsize=title_font_size)
-    axs[1][1].set_title("Overall Mean Error", fontsize=title_font_size)
+    axs[1][1].set_title("Mean Error", fontsize=title_font_size)
 
     axs[0][0].legend(loc="upper center", 
                         bbox_to_anchor=(1.2, 1.35),
