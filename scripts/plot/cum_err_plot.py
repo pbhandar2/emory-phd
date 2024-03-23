@@ -62,6 +62,7 @@ def plot_hr(ax: plt.Axes, data_df: DataFrame):
     ax.plot([], [], '-s', markersize=markersize_val, color="teal", alpha=1.0, label="Overall Mean Error")
 
     ax.invert_xaxis()
+    ax.set_ylim(bottom=0)
 
 
 
@@ -73,6 +74,7 @@ def plot_mean(ax: plt.Axes, data_df: DataFrame):
     alpha_val = 1.0
     ax.plot(num_iter_arr, mean_arr, '-s', color="teal", markersize=markersize_val, alpha=alpha_val, label="Mean Error")
     ax.invert_xaxis()
+    ax.set_ylim(bottom=0)
 
 
 def plot(data_df: DataFrame, plot_path: Path):
