@@ -84,7 +84,7 @@ def plot(data_df: DataFrame, plot_path: Path):
     block_subplot(axs[0][0], data_df, "read")
     block_subplot(axs[0][1], data_df, "write")
 
-    title_font_size = 18
+    title_font_size = 22
     axs[0][0].set_title("Read", fontsize=title_font_size)
     axs[0][1].set_title("Write", fontsize=title_font_size)
     axs[1][0].set_title("Hit Rate Error", fontsize=title_font_size)
