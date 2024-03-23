@@ -45,7 +45,7 @@ def main():
         perf_df = read_csv(PERF_CSV_FILE)
     
     output_path = PATH_DIR.joinpath("post_process_perf.pdf")
-    scatter_plot_pp_perf(perf_df, ERR_GROUP_LIST, output_path, fig_size=[28, 40])
+    scatter_plot_pp_perf(perf_df, ERR_GROUP_LIST, output_path, fig_size=[28, 40], font_size=40)
 
     # for err_pair in ERR_GROUP_LIST:
     #     y_val_arr = []
