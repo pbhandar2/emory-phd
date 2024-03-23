@@ -36,6 +36,7 @@ class PostProcessFiles:
                                                 sampling_seed: int):
 
         file_dict = {}
+        complete_flag = True 
 
         # the sample file 
         sample_file_path = self._config.get_sample_cache_trace_path(sample_set,
@@ -46,14 +47,16 @@ class PostProcessFiles:
         if sample_file_path.exists():
             file_dict["sample_file_path"] = sample_file_path
         else:
-            return file_dict, False 
+            file_dict["sample_file_path"] = None 
+            complete_flag = False 
         
         # RD hist of fill trace 
         full_rd_hist_path = self._config.get_rd_hist_file_path(workload)
         if full_rd_hist_path.exists():
             file_dict["full_rd_hist_file_path"] = full_rd_hist_path
         else:
-            return file_dict, False 
+            file_dict["full_rd_hist_file_path"] = None 
+            complete_flag = False 
 
         # the output file from post processing 
         post_process_output_file_path = self._config.get_sample_post_process_output_file_path(sample_set,
@@ -67,7 +70,7 @@ class PostProcessFiles:
         if post_process_output_file_path.exists():
             file_dict["post_process_output_file_path"] = post_process_output_file_path
         else:
-            print("File not found {}".format(post_process_output_file_path))
-            return file_dict, False 
+            file_dict["post_process_output_file_path"] = None 
+            complete_flag = False 
         
-        return file_dict, True 
+        return file_dict, complete_flag

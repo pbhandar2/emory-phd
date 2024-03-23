@@ -14,6 +14,8 @@ def main():
     plt.rcParams.update({'font.size': 30})
     fig, ax = plt.subplots(figsize=[28,10])
 
+    ax.axhline(10, color='green', linestyle='--')
+    #ax.axhline(15, color='blue', linestyle='--')
 
     print(err_df)
 

@@ -282,8 +282,15 @@ class BaseConfig:
         return self._sample_feature_output_dir_path.joinpath("{}.csv".format(workload_name))
 
 
-
-
+    def get_sample_pp_hit_rate_dir(
+            self,
+            sample_set_name: str
+    ) -> Path:
+        compound_workload_set_name = self.get_compound_workload_set_name(sample_set_name)
+        assert "--" not in sample_set_name and "--" not in self._workload_set_name,\
+            "Sample set or workload name cannot have the string with two dashes --. Current compound workload set name: {}".format(compound_workload_set_name)
+        new_base_config = BaseConfig(workload_set_name=compound_workload_set_name)
+        return new_base_config._post_process_hit_rate_error_dir_path
     
 
     def get_sample_cache_trace_dir_path(
@@ -819,8 +826,10 @@ class BaseConfig:
                                                             rate,
                                                             bits,
                                                             seed)
+            print(data_dir)
             path_list = []
             for data_path in data_dir.iterdir():
+                print(data_path)
                 num_iter = int(data_path.stem)
                 if max_num_iter == 0:
                     path_list.append(data_path)

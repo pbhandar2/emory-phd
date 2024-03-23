@@ -76,8 +76,6 @@ class CumHitRateError:
 
 
 
-
-
 class MultiHitRateError:
     def __init__(
             self,
@@ -133,8 +131,8 @@ class HitRateError:
         Returns:
             hit_rate_err_df: DataFrame of hit rate error values at different cache sizes. 
         """
-        full_hr_arr = self._full_rd_hist.get_hit_rate_arr()
-        sample_hr_arr = self._sample_rd_hist.get_hit_rate_arr()
+        full_hr_arr = self._full_rd_hist.get_hit_ratio_arr()
+        sample_hr_arr = self._sample_rd_hist.get_hit_ratio_arr()
 
         """ Convert the sampling rate from float like 0.8 to a fraction 4/5. The numerator
         and denominator of the fraction denotes the granularity of sample and full reuse

@@ -1,6 +1,8 @@
 from pathlib import Path 
 from pandas import DataFrame
 from argparse import ArgumentParser
+from scipy import stats
+from numpy import quantile
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
@@ -41,6 +43,9 @@ def plot_per_workload(
             perf_metric = row[perf_key]
             data[perf_key][cur_bits].append(perf_metric)
     
+    print(data["bandwidth"][4])
+    print(stats.describe(data["bandwidth"][4]))
+    print(quantile(data["bandwidth"][4], [0.25, 0.5, 0.75, 0.9, 0.99]))
     plot_replay_bar_plot(data, output_path)
         
 
@@ -50,8 +55,10 @@ def main():
     parser.add_argument("-r", "--rate", type=int, help="Sampling rate.")
     args = parser.parse_args()
 
+    print(args)
+
     err_df = get_replay_err_df()
-    err_df = err_df[(err_df["workload"] == args.workload) & (err_df["rate"] == args.rate) & (err_df[""])]
+    err_df = err_df[(err_df["workload"] == args.workload) & (err_df["rate"] == args.rate)]
     output_path = Path("./files/per_workload_plot/{}_{}.pdf".format(args.workload, args.rate))
     plot_per_workload(err_df, output_path)
 
