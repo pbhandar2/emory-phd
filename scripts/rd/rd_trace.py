@@ -48,11 +48,17 @@ def create_rd_hist(
         
 
 class CreateRDTrace:
-    def __init__(self, cache_trace_path: Path):
+    def __init__(
+            self, 
+            cache_trace_path: Path
+    ) -> None:
         self._cache_trace_path = cache_trace_path
     
 
-    def create(self, rd_trace_path: Path):
+    def create(
+            self, 
+            rd_trace_path: Path
+    ) -> None:
         init_params = {
             "label": 3
         }
@@ -64,7 +70,6 @@ class CreateRDTrace:
 
         rd_trace_df = read_csv(rd_trace_path, names=['rd'])
         cache_trace_df = read_csv(self._cache_trace_path, names=["i", "iat", "key", "op", "front_misalign", "rear_misalign"])
-
         assert len(rd_trace_df) == len(cache_trace_df), \
             "Rd trace len {} and cache trace len {} not equal".format(len(rd_trace_df), len(cache_trace_df))
         

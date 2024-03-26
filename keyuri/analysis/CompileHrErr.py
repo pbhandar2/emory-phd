@@ -19,7 +19,9 @@ class NpEncoder(JSONEncoder):
 
 
 class CompileHrErr:
-    def __init__(self) -> None:
+    def __init__(
+            self
+    ) -> None:
         self._dir_config = BaseConfig()
 
 
