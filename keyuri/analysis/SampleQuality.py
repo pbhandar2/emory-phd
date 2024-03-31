@@ -54,12 +54,42 @@ class SampleQualityData:
 
     def plot_cdf(self, data_arr, plot_path, rate_arr):
         plt.rcParams.update({'font.size': 37})
-        fig, ax = plt.subplots(figsize=[28,10])
+        fig, ax = plt.subplots(figsize=[28,7])
         ax.violinplot(data_arr)
-        ax.scatter(range(1, len(rate_arr)+1), [_/100 for _ in rate_arr], color='red', s=120)
+        ax.scatter(range(1, len(rate_arr)+1), [_/100 for _ in rate_arr], color='red', s=250)
         ax.set_xlabel("Sampling Ratio")
         ax.set_ylabel("Request Ratio")
         ax.set_xticks(range(1, len(rate_arr)+1), [_/100 for _ in rate_arr])
+        plt.tight_layout()
+        plt.savefig(plot_path)
+        plt.close(fig)
+
+    
+    def plot_cdf_sub_plot(self, ax, data_arr, rate_arr):
+        ax.violinplot(data_arr)
+        ax.scatter(range(1, len(rate_arr)+1), [_/100 for _ in rate_arr], color='red', s=250, label="x=y")
+    
+
+    def plot_all_cdf_sub_plot_in_one(self, plot_path):
+        plt.rcParams.update({'font.size': 45})
+        fig, axs = plt.subplots(nrows=3, ncols=1, figsize=[28,21])
+        data_dict = self.get_all_sample_ratio_per_bits_and_rate()
+        rate_arr = [1, 5, 10, 20, 40, 80]
+        for bits_index, bits in enumerate([0, 2, 4]):
+            data_arr = []
+            for rate in rate_arr:
+                data_arr.append(data_dict[rate][bits])
+            self.plot_cdf_sub_plot(axs[bits_index], data_arr, rate_arr)
+            if bits_index == 0:
+                axs[bits_index].legend()
+
+            if bits_index == 1:
+                axs[bits_index].set_ylabel("Request Ratio")
+                
+            axs[bits_index].set_xticks([])
+
+        axs[-1].set_xlabel("Sampling Ratio")
+        axs[-1].set_xticks(range(1, len(rate_arr)+1), [_/100 for _ in rate_arr])
         plt.tight_layout()
         plt.savefig(plot_path)
         plt.close(fig)
@@ -90,7 +120,7 @@ class SampleQualityData:
 
     def plot_sample_quality_per_workload(self, quality_df: DataFrame, plot_path: Path) -> None:
         plt.rcParams.update({'font.size': 37})
-        fig, ax = plt.subplots(figsize=[28,10])
+        fig, ax = plt.subplots(figsize=[14,10])
 
         marker_dict = {
             0: "D",
@@ -103,7 +133,7 @@ class SampleQualityData:
             sorted_df = group_df.sort_values(by=["rate"])
             rate_arr = sorted_df["rate"]
             req_ratio_arr = sorted_df["req_ratio"]
-            ax.scatter(rate_arr, req_ratio_arr, marker=marker_dict[group_index], s=250, alpha=0.6, label=group_index)
+            ax.scatter(rate_arr, req_ratio_arr, marker=marker_dict[group_index], s=350, alpha=0.6, label=group_index)
 
 
         ax.plot([0, 80], [0, 0.8], '--', color='black', alpha=0.4, linewidth=3)
